@@ -19,37 +19,37 @@ import Logo from './Logo'
 const SERVICES = [
   {
     label: 'Import',
-    to: '/#service-import',
+    to: '/services/import',
     icon: faShip,
     desc: 'Gestion des opérations d’importation.',
   },
   {
     label: 'Export',
-    to: '/#service-export',
+    to: '/services/export',
     icon: faTruckFast,
     desc: 'Gestion des opérations d’exportation.',
   },
   {
     label: 'Traitement de déclaration',
-    to: '/#service-declaration',
+    to: '/services/traitement-declaration',
     icon: faFileInvoice,
     desc: 'Traitement des dossiers et déclarations douanières.',
   },
   {
     label: 'Comptabilité',
-    to: '/#service-comptabilite',
+    to: '/services/comptabilite',
     icon: faCalculator,
     desc: 'Suivi administratif, financier et comptable.',
   },
   {
     label: 'Suivi',
-    to: '/#service-suivi',
+    to: '/services/suivi',
     icon: faBoxOpen,
     desc: 'Suivi des opérations et des dossiers.',
   },
   {
     label: 'Digitalisation',
-    to: '/#service-digitalisation',
+    to: '/services/digitalisation',
     icon: faLaptopCode,
     desc: 'Solutions digitales pour vos opérations.',
   },
@@ -57,10 +57,9 @@ const SERVICES = [
 
 const NAV_ITEMS = [
   { label: 'Accueil', to: '/' },
-  { label: 'À propos', to: '/#a-propos' },
-  { label: 'Nos services', to: '/#services', dropdown: SERVICES },
-  { label: 'Notre expertise', to: '/#expertise' },
-  { label: 'Actualités', to: '/#actualites' },
+  { label: 'À propos', to: '/a-propos' },
+  { label: 'Nos services', to: '/services', dropdown: SERVICES },
+  { label: 'Actualités', to: '/actualites' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -74,9 +73,15 @@ function Navbar() {
   const activeItem =
     pathname === '/contact'
       ? 'Contact'
-      : pathname === '/'
-        ? 'Accueil'
-        : ''
+      : pathname === '/a-propos'
+        ? 'À propos'
+        : pathname === '/actualites'
+          ? 'Actualités'
+          : pathname.startsWith('/services')
+            ? 'Nos services'
+            : pathname === '/'
+              ? 'Accueil'
+              : ''
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -177,7 +182,7 @@ function Navbar() {
                           ))}
                         </div>
                         <Link
-                          to="/#services"
+                          to="/services"
                           onClick={() => setOpenDropdown(null)}
                           className="flex items-center justify-between border-t border-black/5 bg-navy/[0.03] px-5 py-3 text-xs font-semibold uppercase tracking-wider text-navy transition-colors hover:bg-navy hover:text-white"
                         >

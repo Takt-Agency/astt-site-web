@@ -1,17 +1,8 @@
 import { motion } from 'motion/react'
 
-const PARTNERS = [
-  { name: 'Aramex' },
-  { name: 'DHL Group' },
-  { name: 'Maersk' },
-  { name: 'CMA CGM' },
-  { name: 'MSC' },
-  { name: 'FedEx' },
-  { name: 'Kuehne+Nagel' },
-  { name: 'DB Schenker' },
-  { name: 'DSV' },
-  { name: 'GEODIS' },
-]
+const PARTNERS = Array.from({ length: 10 }, (_, i) => ({
+  name: `Logo ${i + 1}`,
+}))
 
 function LogoItem({ name }) {
   return (

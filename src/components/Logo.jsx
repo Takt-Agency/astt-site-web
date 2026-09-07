@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom'
-import logoAstt from '../assets/logo-astt.png'
+import logoDark from '../assets/logo-dark.png'
+import logoWhite from '../assets/logo-white.png'
 
-function Logo({ className = '' }) {
+function Logo({ variant = 'dark', className = '' }) {
+  const src = variant === 'white' ? logoWhite : logoDark
   return (
     <Link to="/" className={`inline-flex items-center ${className}`}>
-      <img src={logoAstt} alt="ASTT — Transit & logistics" className="h-12 w-auto" />
+      <img
+        src={src}
+        alt="ASTT — Jouni Group — Transit & Logistics"
+        className="h-12 w-auto"
+      />
     </Link>
   )
 }

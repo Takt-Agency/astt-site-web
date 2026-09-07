@@ -1,7 +1,37 @@
 import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowRight,
+  faFileLines,
+  faGlobe,
+  faHeadset,
+  faShieldHalved,
+  faStopwatch,
+} from '@fortawesome/free-solid-svg-icons'
 import heroImage from '../assets/hero-image.webp'
+
+const FEATURES = [
+  {
+    icon: faShieldHalved,
+    line1: 'Sécurité',
+    line2: 'des marchandises',
+  },
+  {
+    icon: faStopwatch,
+    line1: 'Respect',
+    line2: 'des délais',
+  },
+  {
+    icon: faGlobe,
+    line1: 'Solutions sur mesure',
+    line2: 'pour votre business',
+  },
+  {
+    icon: faHeadset,
+    line1: 'Une équipe',
+    line2: 'à votre écoute',
+  },
+]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -21,108 +51,108 @@ function Hero() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(100deg, rgba(19,26,43,0.95) 0%, rgba(19,26,43,0.8) 35%, rgba(19,26,43,0.35) 65%, rgba(19,26,43,0.15) 100%), url(${heroImage})`,
+          backgroundImage: `linear-gradient(180deg, rgba(19,26,43,0.55) 0%, rgba(19,26,43,0.35) 40%, rgba(19,26,43,0.55) 100%), url(${heroImage})`,
         }}
         aria-hidden="true"
       />
 
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, #ffffff 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-        aria-hidden="true"
-      />
+      <div className="relative mx-auto flex max-w-[1280px] flex-col items-center px-8 pb-14 pt-16 text-center sm:px-12 lg:px-20 lg:pb-20 lg:pt-24">
+        {/* Eyebrow with side dashes */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="flex items-center justify-center gap-4"
+        >
+          <span className="h-px w-10 bg-orange sm:w-16" />
+          <span className="text-xs font-bold uppercase tracking-[0.3em] text-orange sm:text-sm">
+            Transit <span className="mx-2 text-white/40">•</span> Transport
+            <span className="mx-2 text-white/40">•</span> Logistique
+          </span>
+          <span className="h-px w-10 bg-orange sm:w-16" />
+        </motion.div>
 
-      <div className="relative mx-auto max-w-[1280px] px-8 pb-24 pt-14 sm:px-12 lg:px-20 lg:pb-28 lg:pt-20">
-        <div className="max-w-xl">
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            className="text-xs font-semibold uppercase tracking-[0.2em] text-orange"
+        {/* Title */}
+        <motion.h1
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={1}
+          className="mt-6 max-w-6xl font-bold leading-[1.1] tracking-tight text-white text-4xl sm:text-5xl lg:text-6xl"
+        >
+          Votre partenaire en transit,{' '}
+          <span className="text-mint">transport</span>
+          <br />
+          et <span className="text-orange">logistique</span>
+        </motion.h1>
+
+        {/* Description */}
+        <motion.p
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={2}
+          className="mt-6 max-w-2xl text-sm leading-relaxed text-white/85 lg:text-base"
+        >
+          ASTT accompagne les entreprises dans leurs opérations d&apos;importation
+          et d&apos;exportation, les procédures douanières et la gestion des
+          flux de marchandises avec des solutions fiables, efficaces et
+          adaptées à vos besoins.
+        </motion.p>
+
+        {/* CTAs — inline pills */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={3}
+          className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+        >
+          <a
+            href="/contact"
+            className="group inline-flex items-center justify-center gap-3 rounded-full bg-orange px-8 py-4 text-sm font-bold text-white shadow-lg shadow-orange/30 transition-all hover:bg-orange-600"
           >
-            Transit <span className="mx-2">•</span> Transport
-            <span className="mx-2">•</span> Logistique
-          </motion.p>
-
-          <motion.h1
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={1}
-            className="mt-5 font-bold leading-[1.15] tracking-tight text-white text-3xl sm:text-4xl lg:text-5xl"
+            <FontAwesomeIcon icon={faFileLines} className="text-sm" />
+            Devis rapide
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
+              <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
+            </span>
+          </a>
+          <a
+            href="#services"
+            className="group inline-flex items-center justify-center gap-3 rounded-full border border-white/40 bg-white/[0.04] px-8 py-4 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white hover:bg-white/10"
           >
-            Votre partenaire
-            <br />
-            en transit, transport
-            <br />
-            et <span className="text-mint">logistique</span>
-          </motion.h1>
+            Découvrir nos services
+            <span className="grid h-6 w-6 place-items-center rounded-full border border-white/40 transition-transform group-hover:translate-x-1">
+              <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
+            </span>
+          </a>
+        </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={2}
-            className="mt-5 h-1 w-20 rounded-full bg-orange"
-          />
-
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={3}
-            className="mt-6 max-w-lg text-sm leading-relaxed text-white/80 lg:text-base"
-          >
-            ASTT accompagne les entreprises dans leurs opérations
-            d&apos;importation et d&apos;exportation, les procédures douanières
-            et la gestion des flux de marchandises avec des solutions fiables,
-            efficaces et adaptées à vos besoins.
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="show"
-            custom={4}
-            className="mt-8 flex flex-col gap-3 sm:flex-row"
-          >
-            <a
-              href="#services"
-              className="group inline-flex items-center justify-center gap-2.5 rounded-md bg-orange px-6 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-orange/20 transition-all hover:bg-orange-600"
+        {/* Feature strip */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          custom={4}
+          className="mt-14 hidden w-full max-w-4xl grid-cols-2 gap-x-6 gap-y-6 lg:mt-16 lg:grid lg:grid-cols-4 lg:gap-x-4"
+        >
+          {FEATURES.map((f) => (
+            <div
+              key={f.line1}
+              className="flex items-center justify-center gap-3 text-left"
             >
-              Découvrir nos services
-              <span className="grid h-5 w-5 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
-                <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
-              </span>
-            </a>
-            <a
-              href="#a-propos"
-              className="group inline-flex items-center justify-center gap-2.5 rounded-md border border-white/30 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition-all hover:border-white hover:bg-white/5"
-            >
-              En savoir plus sur ASTT
-              <span className="grid h-5 w-5 place-items-center rounded-full border border-white/40 transition-transform group-hover:translate-x-1">
-                <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
-              </span>
-            </a>
-          </motion.div>
-        </div>
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-orange backdrop-blur-sm">
+                <FontAwesomeIcon icon={f.icon} className="text-base" />
+              </div>
+              <div className="text-sm leading-tight text-white">
+                <div className="font-semibold">{f.line1}</div>
+                <div className="text-white/70">{f.line2}</div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
-
-      <svg
-        className="absolute inset-x-0 bottom-0 h-16 w-full text-white lg:h-24"
-        viewBox="0 0 1440 120"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          fill="currentColor"
-          d="M0,64 C240,120 480,120 720,80 C960,40 1200,40 1440,80 L1440,120 L0,120 Z"
-        />
-      </svg>
     </section>
   )
 }

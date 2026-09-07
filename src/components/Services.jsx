@@ -1,61 +1,9 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faArrowLeft,
-  faArrowRight,
-  faBoxOpen,
-  faCalculator,
-  faFileInvoice,
-  faLaptopCode,
-  faShip,
-  faTruckFast,
-} from '@fortawesome/free-solid-svg-icons'
-
-const SERVICES = [
-  {
-    number: '01',
-    id: 'service-import',
-    icon: faShip,
-    title: 'Import',
-    text: 'Gestion et accompagnement des opérations d’importation, du dédouanement à la livraison.',
-  },
-  {
-    number: '02',
-    id: 'service-export',
-    icon: faTruckFast,
-    title: 'Export',
-    text: 'Gestion et accompagnement des opérations d’exportation, avec un suivi complet de vos dossiers.',
-  },
-  {
-    number: '03',
-    id: 'service-declaration',
-    icon: faFileInvoice,
-    title: 'Traitement de déclaration',
-    text: 'Traitement des dossiers et déclarations douanières via le système TTN.',
-  },
-  {
-    number: '04',
-    id: 'service-comptabilite',
-    icon: faCalculator,
-    title: 'Comptabilité',
-    text: 'Suivi administratif, financier et comptable de vos opérations et de vos règlements.',
-  },
-  {
-    number: '05',
-    id: 'service-suivi',
-    icon: faBoxOpen,
-    title: 'Suivi',
-    text: 'Suivi des opérations douanières et gestion des informations relatives à vos dossiers.',
-  },
-  {
-    number: '06',
-    id: 'service-digitalisation',
-    icon: faLaptopCode,
-    title: 'Digitalisation',
-    text: 'Solutions digitales développées pour améliorer le suivi et la gestion de vos opérations.',
-  },
-]
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { SERVICES } from '../data/services'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -68,8 +16,8 @@ const fadeUp = {
 
 function ServiceCard({ s }) {
   return (
-    <a
-      href={`#${s.id}`}
+    <Link
+      to={`/services/${s.slug}`}
       className="group relative flex w-[320px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-navy/10 bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:border-orange/40 hover:shadow-2xl hover:shadow-navy/10 sm:w-[360px]"
     >
       <span className="absolute right-5 top-4 text-6xl font-extrabold text-navy/[0.04] transition-colors group-hover:text-orange/10">
@@ -92,7 +40,7 @@ function ServiceCard({ s }) {
       </h3>
 
       <p className="relative mt-3 flex-1 text-sm leading-relaxed text-ink/65">
-        {s.text}
+        {s.short}
       </p>
 
       <div className="relative mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-navy transition-colors group-hover:text-orange">
@@ -101,7 +49,7 @@ function ServiceCard({ s }) {
           <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
         </span>
       </div>
-    </a>
+    </Link>
   )
 }
 
@@ -207,7 +155,7 @@ function Services() {
             className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {SERVICES.map((s) => (
-              <ServiceCard key={s.id} s={s} />
+              <ServiceCard key={s.slug} s={s} />
             ))}
           </div>
         </div>
@@ -215,19 +163,22 @@ function Services() {
 
       {/* CTA */}
       <div className="mx-auto mt-8 flex max-w-[1280px] justify-center px-8 sm:px-12 lg:px-20">
-        <motion.a
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
-          href="#services-all"
-          className="group inline-flex items-center gap-3 rounded-md bg-navy px-8 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-navy/20 transition-all hover:bg-orange"
         >
-          Tous les services
-          <span className="grid h-6 w-6 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-1 group-hover:bg-white group-hover:text-orange">
-            <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-          </span>
-        </motion.a>
+          <Link
+            to="/services"
+            className="group inline-flex items-center gap-3 rounded-md bg-navy px-8 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-navy/20 transition-all hover:bg-orange"
+          >
+            Tous les services
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-1 group-hover:bg-white group-hover:text-orange">
+              <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
+            </span>
+          </Link>
+        </motion.div>
       </div>
     </section>
   )

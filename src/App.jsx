@@ -3,13 +3,16 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
+import About from './pages/About'
 import Contact from './pages/Contact'
+import Services from './pages/Services'
+import ServiceDetail from './pages/ServiceDetail'
+import Actualites from './pages/Actualites'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
     if (hash) {
-      // wait for DOM
       setTimeout(() => {
         const el = document.querySelector(hash)
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -29,6 +32,10 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/a-propos" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
+          <Route path="/actualites" element={<Actualites />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

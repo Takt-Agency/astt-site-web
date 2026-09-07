@@ -15,24 +15,23 @@ import {
   faInstagram,
   faLinkedinIn,
 } from '@fortawesome/free-brands-svg-icons'
-import iconAstt from '../assets/icon-astt.png'
+import logoWhite from '../assets/logo-white.png'
 
 const NAV_LINKS = [
   { label: 'Accueil', href: '/' },
-  { label: 'À propos', href: '/#a-propos' },
-  { label: 'Nos services', href: '/#services' },
-  { label: 'Notre expertise', href: '/#expertise' },
-  { label: 'Actualités', href: '/#actualites' },
+  { label: 'À propos', href: '/a-propos' },
+  { label: 'Nos services', href: '/services' },
+  { label: 'Actualités', href: '/actualites' },
   { label: 'Contact', href: '/contact' },
 ]
 
 const SERVICES = [
-  { label: 'Import', href: '/#service-import' },
-  { label: 'Export', href: '/#service-export' },
-  { label: 'Traitement de déclaration', href: '/#service-declaration' },
-  { label: 'Comptabilité', href: '/#service-comptabilite' },
-  { label: 'Suivi', href: '/#service-suivi' },
-  { label: 'Digitalisation', href: '/#service-digitalisation' },
+  { label: 'Import', href: '/services/import' },
+  { label: 'Export', href: '/services/export' },
+  { label: 'Traitement de déclaration', href: '/services/traitement-declaration' },
+  { label: 'Comptabilité', href: '/services/comptabilite' },
+  { label: 'Suivi', href: '/services/suivi' },
+  { label: 'Digitalisation', href: '/services/digitalisation' },
 ]
 
 const SOCIALS = [
@@ -100,16 +99,12 @@ function Footer() {
             transition={{ duration: 0.5 }}
             className="lg:col-span-4"
           >
-            <Link to="/" className="inline-flex items-center gap-3">
-              <img src={iconAstt} alt="ASTT" className="h-11 w-auto" />
-              <div className="leading-none">
-                <div className="text-2xl font-extrabold italic tracking-tight text-white">
-                  ASTT
-                </div>
-                <div className="mt-1 text-[11px] font-medium italic tracking-wide text-white/60">
-                  Transit &amp; logistics
-                </div>
-              </div>
+            <Link to="/" className="inline-flex items-center">
+              <img
+                src={logoWhite}
+                alt="ASTT — Jouni Group — Transit & Logistics"
+                className="h-14 w-auto"
+              />
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
               Assistance Service de Transit et de Transport — filiale du{' '}
