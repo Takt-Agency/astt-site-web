@@ -9,8 +9,8 @@
   --color-mint: #d6f9f2;
   --color-ink: #15191f;
 
-  --font-sans: "Kanit", system-ui, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Kanit", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 html,

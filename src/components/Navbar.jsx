@@ -70,6 +70,8 @@ function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
+  const showLightUI = !scrolled && !mobileOpen
+
   const activeItem =
     pathname === '/contact'
       ? 'Contact'
@@ -102,16 +104,16 @@ function Navbar() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-md border-black/5 shadow-lg shadow-navy/5'
-          : 'bg-white border-transparent'
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled || mobileOpen
+          ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-navy/5'
+          : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-8 sm:px-12 lg:px-20">
-        <Logo />
+      <nav className="mx-auto flex h-24 max-w-[1440px] items-center justify-between px-6 sm:px-10 lg:px-14">
+        <Logo variant={showLightUI ? 'white' : 'dark'} />
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-10 lg:flex">
           {NAV_ITEMS.map((item) => {
             const isActive = activeItem === item.label
             const hasDropdown = Array.isArray(item.dropdown)
@@ -124,24 +126,22 @@ function Navbar() {
               >
                 <Link
                   to={item.to}
-                  className={`flex items-center gap-1.5 py-6 text-[15px] font-medium transition-colors ${
-                    isActive ? 'text-orange' : 'text-navy hover:text-orange'
+                  className={`flex items-center gap-1.5 py-8 text-[15px] font-semibold transition-colors ${
+                    showLightUI
+                      ? isActive
+                        ? 'text-white'
+                        : 'text-white/85 hover:text-white'
+                      : isActive
+                        ? 'text-navy'
+                        : 'text-navy/85 hover:text-navy'
                   }`}
                 >
                   {item.label}
-                  {hasDropdown && (
-                    <FontAwesomeIcon
-                      icon={faChevronDown}
-                      className={`text-[10px] opacity-70 transition-transform ${
-                        openDropdown === item.label ? 'rotate-180' : ''
-                      }`}
-                    />
-                  )}
                 </Link>
                 {isActive && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute bottom-4 left-0 right-0 h-0.5 bg-orange"
+                    className="absolute bottom-6 left-1/2 h-[3px] w-6 -translate-x-1/2 rounded-full bg-orange"
                     transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                   />
                 )}
@@ -201,14 +201,18 @@ function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           <Link
             to="/contact"
-            className="hidden items-center gap-2.5 rounded-full bg-navy px-5 py-2.5 text-[13px] font-semibold uppercase tracking-wider text-white transition-all hover:bg-orange lg:inline-flex"
+            className={`hidden items-center gap-3 rounded-full py-2 pl-6 pr-2 text-[14px] font-semibold transition-all lg:inline-flex ${
+              showLightUI
+                ? 'bg-white text-navy hover:bg-white/90'
+                : 'bg-navy text-white hover:bg-navy-800'
+            }`}
           >
             Nous contacter
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-orange text-white transition-colors">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-0.5">
+              <FontAwesomeIcon icon={faArrowRight} className="text-[12px]" />
             </span>
           </Link>
 
@@ -216,7 +220,11 @@ function Navbar() {
             type="button"
             aria-label="Ouvrir le menu"
             onClick={() => setMobileOpen((v) => !v)}
-            className="grid h-11 w-11 place-items-center rounded-md text-navy transition-colors hover:bg-navy/5 lg:hidden"
+            className={`grid h-11 w-11 place-items-center rounded-md transition-colors lg:hidden ${
+              showLightUI
+                ? 'text-white hover:bg-white/10'
+                : 'text-navy hover:bg-navy/5'
+            }`}
           >
             <FontAwesomeIcon
               icon={mobileOpen ? faXmark : faBars}
@@ -311,10 +319,12 @@ function Navbar() {
                 <Link
                   to="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2.5 rounded-full bg-orange px-5 py-3 text-sm font-semibold uppercase tracking-wider text-white"
+                  className="flex items-center justify-center gap-2.5 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-white"
                 >
                   Nous contacter
-                  <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-orange">
+                    <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+                  </span>
                 </Link>
               </li>
             </ul>

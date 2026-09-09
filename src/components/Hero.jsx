@@ -1,156 +1,209 @@
-import { motion } from 'motion/react'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faArrowDown,
   faArrowRight,
-  faFileLines,
-  faGlobe,
-  faHeadset,
-  faShieldHalved,
-  faStopwatch,
+  faCalendarDays,
+  faEarthAfrica,
+  faLayerGroup,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
-import heroImage from '../assets/hero-image.webp'
+import heroImage from '../assets/image hero.png'
+import heroImageMobile from '../assets/hero mobile.png'
 
-const FEATURES = [
+const SLIDES = [
   {
-    icon: faShieldHalved,
-    line1: 'Sécurité',
-    line2: 'des marchandises',
+    eyebrow: 'Transit & Logistics',
+    title: ['Plus loin', 'avec vous'],
+    description:
+      'Des solutions de transit et de transport fiables pour un monde de nouvelles opportunités.',
+    cta: { label: 'Découvrir nos services', href: '/services' },
   },
   {
-    icon: faStopwatch,
-    line1: 'Respect',
-    line2: 'des délais',
+    eyebrow: 'Transit & Douane',
+    title: ['Vos dossiers,', 'entre expertes mains'],
+    description:
+      'Une gestion structurée de vos opérations douanières et un suivi rigoureux à chaque étape.',
+    cta: { label: 'Nos expertises', href: '/services' },
   },
   {
-    icon: faGlobe,
-    line1: 'Solutions sur mesure',
-    line2: 'pour votre business',
-  },
-  {
-    icon: faHeadset,
-    line1: 'Une équipe',
-    line2: 'à votre écoute',
+    eyebrow: 'Logistique intégrée',
+    title: ['Un partenaire', 'de confiance'],
+    description:
+      'Une équipe engagée pour accompagner vos flux du départ à la destination finale.',
+    cta: { label: 'Nous contacter', href: '/contact' },
   },
 ]
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut', delay: 0.1 + i * 0.08 },
-  }),
-}
+const STATS = [
+  { icon: faCalendarDays, value: '1980', label: 'Création du groupe' },
+  { icon: faUsers, value: '16', label: 'Collaborateurs' },
+  { icon: faEarthAfrica, value: '100%', label: 'Exportatrice' },
+  { icon: faLayerGroup, value: '6', label: 'Domaines de services' },
+]
+
+const AUTOPLAY_MS = 6000
 
 function Hero() {
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActive((prev) => (prev + 1) % SLIDES.length)
+    }, AUTOPLAY_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  const slide = SLIDES[active]
+
   return (
     <section
       id="accueil"
-      className="relative overflow-hidden bg-navy pt-20 text-white"
+      className="relative min-h-screen bg-navy pt-24 text-white"
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(19,26,43,0.55) 0%, rgba(19,26,43,0.35) 40%, rgba(19,26,43,0.55) 100%), url(${heroImage})`,
-        }}
-        aria-hidden="true"
-      />
+      {/* Background image (same across slides) */}
+      <div className="absolute inset-0 overflow-hidden">
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={heroImage} />
+          <img
+            src={heroImageMobile}
+            alt="Terminal portuaire — logistique ASTT"
+            className="h-full w-full object-cover object-center"
+          />
+        </picture>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(19,26,43,0.9) 0%, rgba(19,26,43,0.75) 20%, rgba(19,26,43,0.4) 40%, rgba(19,26,43,0) 55%)',
+          }}
+        />
+      </div>
 
-      <div className="relative mx-auto flex max-w-[1280px] flex-col items-center px-8 pb-14 pt-16 text-center sm:px-12 lg:px-20 lg:pb-20 lg:pt-24">
-        {/* Eyebrow with side dashes */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          className="flex items-center justify-center gap-4"
-        >
-          <span className="h-px w-10 bg-orange sm:w-16" />
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-orange sm:text-sm">
-            Transit <span className="mx-2 text-white/40">•</span> Transport
-            <span className="mx-2 text-white/40">•</span> Logistique
-          </span>
-          <span className="h-px w-10 bg-orange sm:w-16" />
-        </motion.div>
-
-        {/* Title */}
-        <motion.h1
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={1}
-          className="mt-6 max-w-6xl font-bold leading-[1.1] tracking-tight text-white text-4xl sm:text-5xl lg:text-6xl"
-        >
-          Votre partenaire en transit,{' '}
-          <span className="text-mint">transport</span>
-          <br />
-          et <span className="text-orange">logistique</span>
-        </motion.h1>
-
-        {/* Description */}
-        <motion.p
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={2}
-          className="mt-6 max-w-2xl text-sm leading-relaxed text-white/85 lg:text-base"
-        >
-          ASTT accompagne les entreprises dans leurs opérations d&apos;importation
-          et d&apos;exportation, les procédures douanières et la gestion des
-          flux de marchandises avec des solutions fiables, efficaces et
-          adaptées à vos besoins.
-        </motion.p>
-
-        {/* CTAs — inline pills */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={3}
-          className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
-        >
-          <a
-            href="/contact"
-            className="group inline-flex items-center justify-center gap-3 rounded-full bg-orange px-8 py-4 text-sm font-bold text-white shadow-lg shadow-orange/30 transition-all hover:bg-orange-600"
+      {/* Main hero content */}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-[1440px] flex-col px-6 pt-8 sm:px-10 lg:px-14 lg:pt-16">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
           >
-            <FontAwesomeIcon icon={faFileLines} className="text-sm" />
-            Devis rapide
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
-            </span>
-          </a>
-          <a
-            href="#services"
-            className="group inline-flex items-center justify-center gap-3 rounded-full border border-white/40 bg-white/[0.04] px-8 py-4 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white hover:bg-white/10"
-          >
-            Découvrir nos services
-            <span className="grid h-6 w-6 place-items-center rounded-full border border-white/40 transition-transform group-hover:translate-x-1">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
-            </span>
-          </a>
-        </motion.div>
-
-        {/* Feature strip */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate="show"
-          custom={4}
-          className="mt-14 hidden w-full max-w-4xl grid-cols-2 gap-x-6 gap-y-6 lg:mt-16 lg:grid lg:grid-cols-4 lg:gap-x-4"
-        >
-          {FEATURES.map((f) => (
-            <div
-              key={f.line1}
-              className="flex items-center justify-center gap-3 text-left"
-            >
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-orange backdrop-blur-sm">
-                <FontAwesomeIcon icon={f.icon} className="text-base" />
-              </div>
-              <div className="text-sm leading-tight text-white">
-                <div className="font-semibold">{f.line1}</div>
-                <div className="text-white/70">{f.line2}</div>
-              </div>
+            <div className="flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-orange" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/85 sm:text-[11px]">
+                {slide.eyebrow}
+              </span>
             </div>
-          ))}
+
+            <h1 className="mt-4 max-w-[600px] font-extrabold leading-[0.95] tracking-tight text-white text-[44px] sm:text-5xl lg:text-[72px]">
+              {slide.title[0]}
+              <br />
+              {slide.title[1]}
+            </h1>
+
+            <p className="mt-5 max-w-sm text-[13px] leading-relaxed text-white/80 sm:text-sm lg:text-[15px]">
+              {slide.description}
+            </p>
+
+            <div className="mt-7">
+              <a
+                href={slide.cta.href}
+                className="group inline-flex items-center gap-4 rounded-full bg-orange px-6 py-3 text-[13px] font-semibold text-white shadow-lg shadow-orange/30 transition-all hover:bg-orange-600 sm:text-sm"
+              >
+                {slide.cta.label}
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="text-sm transition-transform group-hover:translate-x-1"
+                />
+              </a>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Slide indicators + scroll cue */}
+        <div className="mt-auto flex items-end justify-between pt-10">
+          <div className="flex items-end gap-5 text-[13px] font-semibold">
+            {SLIDES.map((_, i) => {
+              const isActive = i === active
+              const label = String(i + 1).padStart(2, '0')
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActive(i)}
+                  className={`flex flex-col items-start transition-colors ${
+                    isActive ? 'text-orange' : 'text-white/50 hover:text-white/80'
+                  }`}
+                >
+                  {label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="hero-slide-underline"
+                      className="mt-1 h-[2px] w-5 bg-orange"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </button>
+              )
+            })}
+          </div>
+
+          <a
+            href="#stats"
+            className="group flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 transition-colors hover:text-white"
+          >
+            <span className="hidden text-right leading-tight sm:block">
+              Scroll
+              <br />
+              pour explorer
+            </span>
+            <span className="grid h-9 w-9 place-items-center rounded-full border border-white/40 transition-all group-hover:border-white group-hover:bg-white/10">
+              <FontAwesomeIcon icon={faArrowDown} className="text-xs" />
+            </span>
+          </a>
+        </div>
+
+        {/* Stats card — floats at the bottom of the hero */}
+        <motion.div
+          id="stats"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
+          className="relative mt-8 -mb-14 overflow-hidden rounded-3xl bg-navy-900/95 px-4 py-6 shadow-2xl shadow-black/30 ring-1 ring-white/5 backdrop-blur-md sm:-mb-16 sm:px-8 sm:py-8 lg:-mb-20 lg:px-12 lg:py-10"
+        >
+          <div
+            className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-orange/15 blur-3xl"
+            aria-hidden="true"
+          />
+
+          <div className="relative grid grid-cols-4 gap-2 sm:gap-6 lg:gap-10">
+            {STATS.map((s, i) => (
+              <div
+                key={s.label}
+                className={`flex flex-col items-center text-center text-white sm:items-start sm:text-left ${
+                  i > 0 ? 'sm:border-l sm:border-white/10 sm:pl-6 lg:pl-10' : ''
+                }`}
+              >
+                <FontAwesomeIcon
+                  icon={s.icon}
+                  className="text-base text-white/85 sm:text-xl lg:text-2xl"
+                />
+                <div className="mt-2 text-lg font-extrabold leading-none tracking-tight sm:mt-3 sm:text-3xl lg:text-[36px]">
+                  {s.value}
+                </div>
+                <div className="mt-1.5 max-w-[130px] text-[10px] leading-tight text-white/70 sm:mt-2 sm:max-w-none sm:text-sm">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

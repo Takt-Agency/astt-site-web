@@ -1,8 +1,11 @@
-import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
 import { SERVICES } from '../data/services'
 
 const fadeUp = {
@@ -16,82 +19,75 @@ const fadeUp = {
 
 function ServiceCard({ s }) {
   return (
-    <Link
-      to={`/services/${s.slug}`}
-      className="group relative flex w-[320px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-navy/10 bg-white p-7 shadow-sm transition-all hover:-translate-y-1 hover:border-orange/40 hover:shadow-2xl hover:shadow-navy/10 sm:w-[360px]"
-    >
-      <span className="absolute right-5 top-4 text-6xl font-extrabold text-navy/[0.04] transition-colors group-hover:text-orange/10">
-        {s.number}
-      </span>
-
-      <div className="relative grid h-14 w-14 place-items-center rounded-xl bg-mint/60 text-navy transition-colors group-hover:bg-orange group-hover:text-white">
-        <FontAwesomeIcon icon={s.icon} className="text-xl" />
+    <div className="group flex h-full flex-col">
+      {/* Image area */}
+      <div className="relative h-56 overflow-hidden rounded-2xl bg-navy/10">
+        {s.image ? (
+          <img
+            src={s.image}
+            alt={s.title}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={s.icon}
+            className="absolute inset-0 m-auto text-6xl text-navy/25"
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
       </div>
 
-      <div className="relative mt-6 flex items-center gap-3">
-        <span className="text-xs font-bold uppercase tracking-[0.2em] text-orange">
-          {s.number}
+      {/* Overlapping white card */}
+      <div className="relative -mt-8 mx-4 flex flex-1 flex-col rounded-2xl bg-white p-6 shadow-lg shadow-navy/5 transition-all group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-navy/10">
+        <div className="grid h-10 w-10 place-items-center rounded-lg text-navy transition-colors group-hover:text-orange">
+          <FontAwesomeIcon icon={s.icon} className="text-2xl" />
+        </div>
+
+        <span className="mt-4 text-[13px] font-medium text-orange">
+          {s.number} — Services
         </span>
-        <span className="h-px flex-1 bg-navy/10" />
+        <h3 className="mt-1 text-xl font-extrabold uppercase tracking-wide text-navy">
+          {s.title}
+        </h3>
+
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink/65">
+          {s.short}
+        </p>
+
+        <Link
+          to={`/services/${s.slug}`}
+          className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-orange"
+        >
+          En savoir plus
+          <span className="grid h-6 w-6 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-1">
+            <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
+          </span>
+        </Link>
       </div>
-
-      <h3 className="relative mt-3 text-xl font-bold text-navy transition-colors group-hover:text-orange">
-        {s.title}
-      </h3>
-
-      <p className="relative mt-3 flex-1 text-sm leading-relaxed text-ink/65">
-        {s.short}
-      </p>
-
-      <div className="relative mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-navy transition-colors group-hover:text-orange">
-        En savoir plus
-        <span className="grid h-6 w-6 place-items-center rounded-full bg-navy/5 text-navy transition-all group-hover:translate-x-1 group-hover:bg-orange group-hover:text-white">
-          <FontAwesomeIcon icon={faArrowRight} className="text-[10px]" />
-        </span>
-      </div>
-    </Link>
+    </div>
   )
 }
 
 function Services() {
-  const trackRef = useRef(null)
-
-  const scrollBy = (dir) => {
-    const el = trackRef.current
-    if (!el) return
-    const card = el.querySelector('a')
-    const step = (card?.offsetWidth ?? 320) + 24
-    el.scrollBy({ left: dir * step, behavior: 'smooth' })
-  }
-
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-mint/30 py-12 lg:py-16"
+      className="relative overflow-hidden bg-white py-16 lg:py-20"
     >
-      <div
-        className="pointer-events-none absolute left-0 top-24 h-40 w-40 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, #202a44 1.5px, transparent 1.5px)',
-          backgroundSize: '18px 18px',
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="mx-auto max-w-[1280px] px-8 sm:px-12 lg:px-20">
+      <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-14">
         {/* Header row */}
-        <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
-          <div className="max-w-2xl">
+        <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[1.15fr_1fr_auto] lg:gap-12">
+          <div>
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.5 }}
-              className="inline-flex items-center gap-3"
+              className="flex items-center gap-3"
             >
-              <span className="h-px w-10 bg-orange" />
-              <span className="rounded-full bg-orange/10 px-4 py-1.5 text-sm font-bold uppercase tracking-[0.25em] text-orange">
+              <span className="h-[3px] w-10 bg-orange" />
+              <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-navy">
                 Nos services
               </span>
             </motion.div>
@@ -102,84 +98,89 @@ function Services() {
               whileInView="show"
               viewport={{ once: true, amount: 0.5 }}
               custom={1}
-              className="mt-5 text-3xl font-bold leading-tight tracking-tight text-navy sm:text-4xl lg:text-[42px]"
+              className="mt-5 text-3xl font-bold leading-[1.15] tracking-tight text-navy sm:text-4xl lg:text-[42px]"
             >
-              Des services{' '}
-              <span className="text-orange">spécialisés</span> pour accompagner
-              vos opérations
+              Des services intégrés
+              <br />
+              pour une logistique maîtrisée
             </motion.h2>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.4 }}
-              custom={2}
-              className="mt-5 max-w-xl text-sm leading-relaxed text-ink/70 lg:text-base"
-            >
-              ASTT s’appuie sur plusieurs pôles spécialisés permettant d’assurer
-              une gestion structurée des opérations de transit, des procédures
-              douanières et du suivi administratif.
-            </motion.p>
           </div>
 
-          {/* Arrows */}
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              aria-label="Précédent"
-              onClick={() => scrollBy(-1)}
-              className="grid h-12 w-12 place-items-center rounded-full border border-navy/15 bg-white text-navy transition-all hover:border-orange hover:bg-orange hover:text-white"
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.4 }}
+            custom={2}
+            className="max-w-md text-sm leading-relaxed text-ink/70 lg:text-[15px]"
+          >
+            De l&apos;import à la digitalisation, ASTT vous accompagne à chaque
+            étape avec des services spécialisés, assurés par des équipes
+            dédiées.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.5 }}
+            custom={3}
+            className="justify-self-start lg:justify-self-end"
+          >
+            <Link
+              to="/services"
+              className="group inline-flex items-center gap-3 text-sm font-semibold text-navy transition-colors hover:text-orange"
             >
-              <FontAwesomeIcon icon={faArrowLeft} className="text-sm" />
-            </button>
-            <button
-              type="button"
-              aria-label="Suivant"
-              onClick={() => scrollBy(1)}
-              className="grid h-12 w-12 place-items-center rounded-full border border-navy/15 bg-white text-navy transition-all hover:border-orange hover:bg-orange hover:text-white"
-            >
-              <FontAwesomeIcon icon={faArrowRight} className="text-sm" />
-            </button>
-          </div>
+              Voir tous les services
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-1">
+                <FontAwesomeIcon icon={faArrowRight} className="text-xs" />
+              </span>
+            </Link>
+          </motion.div>
         </div>
-      </div>
 
-      {/* Slider */}
-      <div className="mx-auto mt-8 max-w-[1280px] px-8 sm:px-12 lg:mt-10 lg:px-20">
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-16 bg-gradient-to-l from-mint/30 to-transparent lg:block" />
-
-          <div
-            ref={trackRef}
-            className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        {/* Swiper carousel */}
+        <div className="mt-12 lg:mt-14">
+          <Swiper
+            modules={[Autoplay, Navigation, Pagination]}
+            slidesPerView={1}
+            spaceBetween={20}
+            loop
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              640: { slidesPerView: 2, spaceBetween: 20 },
+              900: { slidesPerView: 3, spaceBetween: 24 },
+              1200: { slidesPerView: 4, spaceBetween: 24 },
+            }}
+            className="services-swiper !pb-14"
           >
             {SERVICES.map((s) => (
-              <ServiceCard key={s.slug} s={s} />
+              <SwiperSlide key={s.slug} className="!h-auto">
+                <ServiceCard s={s} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </div>
 
-      {/* CTA */}
-      <div className="mx-auto mt-8 flex max-w-[1280px] justify-center px-8 sm:px-12 lg:px-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Link
-            to="/services"
-            className="group inline-flex items-center gap-3 rounded-md bg-navy px-8 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-navy/20 transition-all hover:bg-orange"
-          >
-            Tous les services
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-1 group-hover:bg-white group-hover:text-orange">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-            </span>
-          </Link>
-        </motion.div>
-      </div>
+      <style>{`
+        .services-swiper .swiper-pagination-bullet {
+          background: #202a44;
+          opacity: 0.25;
+          transition: all 0.25s ease;
+        }
+        .services-swiper .swiper-pagination-bullet-active {
+          background: #ff471c;
+          opacity: 1;
+          width: 24px;
+          border-radius: 4px;
+        }
+      `}</style>
     </section>
   )
 }

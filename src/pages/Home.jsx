@@ -1,4 +1,5 @@
 import Hero from '../components/Hero'
+import Mission from '../components/Mission'
 import LogoCarousel from '../components/LogoCarousel'
 import About from '../components/About'
 import Services from '../components/Services'
@@ -12,10 +13,12 @@ function Home() {
   return (
     <>
       <Hero />
-      <LogoCarousel />
-      <About />
+      <div className="pt-20 sm:pt-24 lg:pt-28" />
+      <Mission />
       <Services />
+      <About />
       <WhyAstt />
+      <LogoCarousel />
       <JouniGroup />
       <Digitalisation />
       <Team />

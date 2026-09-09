@@ -12,6 +12,8 @@ export const SERVICES = [
     slug: 'import',
     number: '01',
     icon: faShip,
+    image:
+      'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?w=800&q=80&auto=format&fit=crop',
     title: 'Import',
     tagline: 'Gestion complète de vos opérations d’importation',
     short:
@@ -41,6 +43,8 @@ export const SERVICES = [
     slug: 'export',
     number: '02',
     icon: faTruckFast,
+    image:
+      'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80&auto=format&fit=crop',
     title: 'Export',
     tagline: 'Un accompagnement structuré pour vos exportations',
     short:
@@ -70,7 +74,9 @@ export const SERVICES = [
     slug: 'traitement-declaration',
     number: '03',
     icon: faFileInvoice,
-    title: 'Traitement de déclaration',
+    image:
+      'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80&auto=format&fit=crop',
+    title: 'Déclaration',
     tagline: 'Traitement des dossiers et déclarations douanières',
     short:
       'Traitement des dossiers et déclarations douanières via le système TTN.',
@@ -99,6 +105,8 @@ export const SERVICES = [
     slug: 'comptabilite',
     number: '04',
     icon: faCalculator,
+    image:
+      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format&fit=crop',
     title: 'Comptabilité',
     tagline: 'Suivi administratif, financier et comptable',
     short:
@@ -128,7 +136,9 @@ export const SERVICES = [
     slug: 'suivi',
     number: '05',
     icon: faBoxOpen,
-    title: 'Suivi',
+    image:
+      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop',
+    title: 'Qualité & Suivi',
     tagline: 'Suivi rigoureux et centralisé de vos opérations',
     short:
       'Suivi des opérations douanières et gestion des informations relatives à vos dossiers.',
@@ -157,6 +167,8 @@ export const SERVICES = [
     slug: 'digitalisation',
     number: '06',
     icon: faLaptopCode,
+    image:
+      'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop',
     title: 'Digitalisation',
     tagline: 'La digitalisation au service de vos opérations',
     short:
