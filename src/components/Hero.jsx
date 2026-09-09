@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -37,23 +37,54 @@ const SLIDES = [
 ]
 
 const STATS = [
-  { icon: faCalendarDays, value: '1980', label: 'Création du groupe' },
+  { icon: faCalendarDays, value: '1980', label: 'Fondation' },
   { icon: faUsers, value: '16', label: 'Collaborateurs' },
-  { icon: faEarthAfrica, value: '100%', label: 'Exportatrice' },
-  { icon: faLayerGroup, value: '6', label: 'Domaines de services' },
+  { icon: faEarthAfrica, value: '100%', label: 'Export' },
+  { icon: faLayerGroup, value: '6', label: 'Métiers' },
 ]
 
 const AUTOPLAY_MS = 6000
 
 function Hero() {
   const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const dragStartX = useRef(null)
+  const dragged = useRef(false)
+
+  const goTo = (i) =>
+    setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length)
+  const next = () => setActive((p) => (p + 1) % SLIDES.length)
+  const prev = () => setActive((p) => (p - 1 + SLIDES.length) % SLIDES.length)
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setActive((prev) => (prev + 1) % SLIDES.length)
-    }, AUTOPLAY_MS)
+    if (paused) return
+    const id = setInterval(next, AUTOPLAY_MS)
     return () => clearInterval(id)
-  }, [])
+  }, [paused, active])
+
+  const onPointerDown = (e) => {
+    dragStartX.current = e.clientX
+    dragged.current = false
+    setPaused(true)
+  }
+  const onPointerMove = (e) => {
+    if (dragStartX.current == null) return
+    if (Math.abs(e.clientX - dragStartX.current) > 8) dragged.current = true
+  }
+  const onPointerUp = (e) => {
+    if (dragStartX.current == null) return
+    const dx = e.clientX - dragStartX.current
+    dragStartX.current = null
+    if (Math.abs(dx) > 50) {
+      if (dx < 0) next()
+      else prev()
+    }
+    setTimeout(() => setPaused(false), 800)
+  }
+  const onPointerCancel = () => {
+    dragStartX.current = null
+    setPaused(false)
+  }
 
   const slide = SLIDES[active]
 
@@ -82,7 +113,14 @@ function Hero() {
       </div>
 
       {/* Main hero content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-[1440px] flex-col px-6 pt-8 sm:px-10 lg:px-14 lg:pt-16">
+      <div
+        className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-[1440px] flex-col px-6 pt-8 sm:px-10 lg:px-14 lg:pt-16"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
+        style={{ touchAction: 'pan-y' }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -111,6 +149,9 @@ function Hero() {
             <div className="mt-7">
               <a
                 href={slide.cta.href}
+                onClick={(e) => {
+                  if (dragged.current) e.preventDefault()
+                }}
                 className="group inline-flex items-center gap-4 rounded-full bg-orange px-6 py-3 text-[13px] font-semibold text-white shadow-lg shadow-orange/30 transition-all hover:bg-orange-600 sm:text-sm"
               >
                 {slide.cta.label}
@@ -133,7 +174,13 @@ function Hero() {
                 <button
                   key={i}
                   type="button"
-                  onClick={() => setActive(i)}
+                  onClick={(e) => {
+                    if (dragged.current) {
+                      e.preventDefault()
+                      return
+                    }
+                    goTo(i)
+                  }}
                   className={`flex flex-col items-start transition-colors ${
                     isActive ? 'text-orange' : 'text-white/50 hover:text-white/80'
                   }`}
