@@ -40,14 +40,9 @@ function JouniGroup() {
   return (
     <section
       id="groupe"
-      className="relative overflow-hidden bg-white py-12 lg:py-16"
+      className="relative overflow-hidden bg-mint/30 py-16 lg:py-24"
     >
-      <div
-        className="pointer-events-none absolute -right-32 top-10 h-64 w-64 rounded-full bg-mint/50 blur-3xl"
-        aria-hidden="true"
-      />
-
-      <div className="relative mx-auto max-w-[1280px] px-8 sm:px-12 lg:px-20">
+      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
@@ -57,11 +52,11 @@ function JouniGroup() {
             viewport={{ once: true, amount: 0.5 }}
             className="inline-flex items-center gap-3"
           >
-            <span className="h-px w-10 bg-orange" />
-            <span className="rounded-full bg-orange/10 px-4 py-1.5 text-sm font-bold uppercase tracking-[0.25em] text-orange">
+            <span className="h-[2px] w-8 bg-orange" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-navy">
               ASTT &amp; Jouni Group
             </span>
-            <span className="h-px w-10 bg-orange" />
+            <span className="h-[2px] w-8 bg-orange" />
           </motion.div>
 
           <motion.h2
@@ -106,7 +101,7 @@ function JouniGroup() {
               <FontAwesomeIcon icon={faSitemap} className="text-lg" />
             </div>
             <div className="text-left">
-              <div className="text-xs font-medium uppercase tracking-wider text-mint">
+              <div className="text-xs font-medium uppercase tracking-wider text-orange">
                 Groupe parent
               </div>
               <div className="text-xl font-extrabold text-white">
@@ -155,7 +150,7 @@ function JouniGroup() {
                   className={`grid h-12 w-12 place-items-center rounded-xl transition-colors ${
                     c.highlight
                       ? 'bg-orange text-white'
-                      : 'bg-mint/60 text-navy group-hover:bg-orange group-hover:text-white'
+                      : 'bg-navy/5 text-navy group-hover:bg-orange group-hover:text-white'
                   }`}
                 >
                   <FontAwesomeIcon icon={c.icon} className="text-lg" />
@@ -179,12 +174,13 @@ function JouniGroup() {
         >
           <a
             href="#contact"
-            className="group inline-flex items-center gap-3 rounded-md border-2 border-navy px-7 py-4 text-sm font-bold uppercase tracking-wider text-navy transition-all hover:bg-navy hover:text-white"
+            className="group inline-flex items-center gap-4 rounded-full border border-navy/20 bg-white px-6 py-3 text-sm font-semibold text-navy transition-all hover:border-navy hover:bg-navy hover:text-white"
           >
             En savoir plus sur le groupe
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-navy text-white transition-transform group-hover:translate-x-1 group-hover:bg-orange">
-              <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-            </span>
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              className="text-sm transition-transform group-hover:translate-x-1"
+            />
           </a>
         </motion.div>
       </div>

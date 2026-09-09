@@ -60,7 +60,7 @@ function Footer() {
         <div className="mx-auto flex max-w-[1280px] flex-col items-start gap-6 px-8 py-10 sm:px-12 lg:flex-row lg:items-center lg:justify-between lg:px-20">
           <div>
             <h3 className="text-2xl font-bold text-white lg:text-3xl">
-              Restez informé de nos <span className="text-mint">actualités</span>
+              Restez informé de nos <span className="text-orange">actualités</span>
             </h3>
             <p className="mt-2 text-sm text-white/60">
               Recevez nos dernières informations sur le transit, la douane et la

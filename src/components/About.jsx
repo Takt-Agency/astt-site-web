@@ -23,7 +23,7 @@ function About() {
   return (
     <section
       id="a-propos"
-      className="relative overflow-hidden bg-white py-12 lg:py-16"
+      className="relative overflow-hidden bg-white py-16 lg:py-24"
     >
       <div
         className="pointer-events-none absolute right-0 top-20 h-40 w-40 opacity-[0.08]"
@@ -35,7 +35,7 @@ function About() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-[1280px] px-8 sm:px-12 lg:px-20">
+      <div className="mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* LEFT — image */}
           <motion.div
@@ -55,7 +55,7 @@ function About() {
 
             <div className="absolute -bottom-6 -right-6 hidden rounded-2xl bg-navy p-5 shadow-xl shadow-navy/30 sm:block lg:-bottom-8 lg:-right-8 lg:p-6">
               <div className="flex items-center gap-4 text-white">
-                <span className="text-4xl font-extrabold leading-none text-mint lg:text-5xl">
+                <span className="text-4xl font-extrabold leading-none text-orange lg:text-5xl">
                   45+
                 </span>
                 <span className="h-10 w-px bg-white/20" />
@@ -75,10 +75,10 @@ function About() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.5 }}
-              className="inline-flex items-center gap-3"
+              className="flex items-center gap-3"
             >
-              <span className="h-px w-10 bg-orange" />
-              <span className="rounded-full bg-orange/10 px-4 py-1.5 text-sm font-bold uppercase tracking-[0.25em] text-orange">
+              <span className="h-[2px] w-8 bg-orange" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-navy">
                 À propos d’ASTT
               </span>
             </motion.div>
@@ -169,12 +169,13 @@ function About() {
             >
               <a
                 href="#services"
-                className="group inline-flex items-center gap-3 rounded-md bg-orange px-7 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-orange/20 transition-all hover:bg-orange-600"
+                className="group inline-flex items-center gap-4 rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-600"
               >
                 Découvrir ASTT
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
-                  <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-                </span>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="text-sm transition-transform group-hover:translate-x-1"
+                />
               </a>
             </motion.div>
           </div>

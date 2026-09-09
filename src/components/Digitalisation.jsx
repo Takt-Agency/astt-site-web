@@ -33,7 +33,7 @@ function Digitalisation() {
   return (
     <section
       id="digitalisation"
-      className="relative overflow-hidden bg-gradient-to-br from-navy-900 via-navy to-navy-900 py-12 text-white lg:py-16"
+      className="relative overflow-hidden bg-gradient-to-br from-navy-900 via-navy to-navy-900 py-16 text-white lg:py-24"
     >
       {/* Grid pattern */}
       <div
@@ -50,11 +50,11 @@ function Digitalisation() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-mint/10 blur-3xl"
+        className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-orange/10 blur-3xl"
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-[1280px] px-8 sm:px-12 lg:px-20">
+      <div className="relative mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* LEFT — content */}
           <div>
@@ -63,10 +63,10 @@ function Digitalisation() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.5 }}
-              className="inline-flex items-center gap-3"
+              className="flex items-center gap-3"
             >
-              <span className="h-px w-10 bg-orange" />
-              <span className="rounded-full bg-orange/20 px-4 py-1.5 text-sm font-bold uppercase tracking-[0.25em] text-orange">
+              <span className="h-[2px] w-8 bg-orange" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/85">
                 Digitalisation
               </span>
             </motion.div>
@@ -79,7 +79,7 @@ function Digitalisation() {
               custom={1}
               className="mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-[42px]"
             >
-              Une <span className="text-mint">plateforme interne</span> au
+              Une <span className="text-orange">plateforme interne</span> au
               service de nos clients
             </motion.h2>
 
@@ -120,12 +120,13 @@ function Digitalisation() {
             >
               <a
                 href="#contact"
-                className="group inline-flex items-center gap-3 rounded-md bg-orange px-7 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-orange/20 transition-all hover:bg-orange-600"
+                className="group inline-flex items-center gap-4 rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-600"
               >
                 Nous contacter
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
-                  <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-                </span>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="text-sm transition-transform group-hover:translate-x-1"
+                />
               </a>
             </motion.div>
           </div>
@@ -175,7 +176,7 @@ function Digitalisation() {
                 cy="200"
                 r="80"
                 fill="none"
-                stroke="#d6f9f2"
+                stroke="#ffffff"
                 strokeOpacity="0.1"
                 strokeWidth="1"
               />
@@ -184,7 +185,7 @@ function Digitalisation() {
                 cy="200"
                 r="120"
                 fill="none"
-                stroke="#d6f9f2"
+                stroke="#ffffff"
                 strokeOpacity="0.08"
                 strokeWidth="1"
                 strokeDasharray="2 6"
@@ -242,7 +243,7 @@ function Digitalisation() {
                 />
               </motion.div>
               <div className="mt-4 text-center">
-                <div className="text-[10px] font-medium uppercase tracking-[0.25em] text-mint">
+                <div className="text-[10px] font-medium uppercase tracking-[0.25em] text-orange">
                   Plateforme
                 </div>
                 <div className="mt-0.5 text-sm font-bold text-white">ASTT</div>

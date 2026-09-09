@@ -1,6 +1,8 @@
 import { motion } from 'motion/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const STEPS = [
   {
@@ -32,6 +34,27 @@ const fadeUp = {
     y: 0,
     transition: { duration: 0.55, ease: 'easeOut', delay: i * 0.08 },
   }),
+}
+
+function StepCard({ s }) {
+  return (
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-navy/10 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-orange/40 hover:shadow-xl hover:shadow-navy/10 lg:p-7">
+      <span className="absolute right-4 top-3 text-5xl font-extrabold text-navy/[0.05] transition-colors group-hover:text-orange/20 lg:text-6xl">
+        {s.number}
+      </span>
+
+      <span className="relative z-10 grid h-14 w-14 place-items-center rounded-full bg-navy text-base font-extrabold text-white shadow-lg shadow-navy/20 transition-all group-hover:bg-orange group-hover:shadow-orange/25">
+        {s.number}
+      </span>
+
+      <h3 className="relative mt-6 text-lg font-bold text-navy">{s.title}</h3>
+      <p className="relative mt-2 flex-1 text-sm leading-relaxed text-ink/65">
+        {s.text}
+      </p>
+
+      <span className="relative mt-5 block h-[2px] w-8 rounded-full bg-orange transition-all group-hover:w-16" />
+    </div>
+  )
 }
 
 function Process() {
@@ -68,54 +91,41 @@ function Process() {
           </motion.h2>
         </div>
 
-        <div className="relative mt-14">
-          {/* Horizontal connector (desktop) */}
-          <div
-            className="pointer-events-none absolute left-0 right-0 top-[38px] hidden h-[2px] bg-navy/10 lg:block"
-            aria-hidden="true"
-          />
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 1.4, ease: 'easeOut' }}
-            style={{ transformOrigin: 'left' }}
-            className="pointer-events-none absolute left-0 right-0 top-[38px] hidden h-[2px] bg-orange lg:block"
-            aria-hidden="true"
-          />
-
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {STEPS.map((s, i) => (
-              <motion.div
-                key={s.number}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.3 }}
-                custom={i}
-                className="group relative flex flex-col"
-              >
-                <div className="flex items-center gap-3 lg:block">
-                  <span className="relative z-10 grid h-[76px] w-[76px] shrink-0 place-items-center rounded-full border-4 border-white bg-navy text-xl font-extrabold text-white shadow-lg shadow-navy/20 transition-all group-hover:bg-orange group-hover:shadow-orange/25">
-                    {s.number}
-                  </span>
-                  <FontAwesomeIcon
-                    icon={faArrowRight}
-                    className="hidden text-orange lg:hidden"
-                  />
-                </div>
-
-                <h3 className="mt-5 text-lg font-bold text-navy lg:mt-7">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink/65">
-                  {s.text}
-                </p>
-              </motion.div>
+        <div className="mt-12 lg:mt-14">
+          <Swiper
+            modules={[Pagination]}
+            slidesPerView={1.15}
+            spaceBetween={16}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              640: { slidesPerView: 2, spaceBetween: 20 },
+              900: { slidesPerView: 3, spaceBetween: 24 },
+              1200: { slidesPerView: 4, spaceBetween: 24 },
+            }}
+            className="process-swiper !pb-14"
+          >
+            {STEPS.map((s) => (
+              <SwiperSlide key={s.number} className="!h-auto">
+                <StepCard s={s} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         </div>
       </div>
+
+      <style>{`
+        .process-swiper .swiper-pagination-bullet {
+          background: #202a44;
+          opacity: 0.25;
+          transition: all 0.25s ease;
+        }
+        .process-swiper .swiper-pagination-bullet-active {
+          background: #ff471c;
+          opacity: 1;
+          width: 24px;
+          border-radius: 4px;
+        }
+      `}</style>
     </section>
   )
 }

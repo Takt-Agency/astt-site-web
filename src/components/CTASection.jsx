@@ -19,8 +19,8 @@ const fadeUp = {
 
 function CTASection() {
   return (
-    <section className="relative bg-white py-12 lg:py-16">
-      <div className="mx-auto max-w-[1280px] px-8 sm:px-12 lg:px-20">
+    <section id="contact" className="relative bg-white py-16 lg:py-24">
+      <div className="mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ function CTASection() {
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-mint/10 blur-3xl"
+            className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-orange/10 blur-3xl"
             aria-hidden="true"
           />
 
@@ -55,10 +55,10 @@ function CTASection() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.5 }}
-                className="inline-flex items-center gap-3"
+                className="flex items-center gap-3"
               >
-                <span className="h-px w-10 bg-orange" />
-                <span className="rounded-full bg-orange/20 px-4 py-1.5 text-sm font-bold uppercase tracking-[0.25em] text-orange">
+                <span className="h-[2px] w-8 bg-orange" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/85">
                   Contactez-nous
                 </span>
               </motion.div>
@@ -73,7 +73,7 @@ function CTASection() {
               >
                 Prêt à confier vos opérations
                 <br className="hidden sm:inline" /> à{' '}
-                <span className="text-mint">un partenaire de confiance</span> ?
+                <span className="text-orange">un partenaire de confiance</span> ?
               </motion.h2>
 
               <motion.p
@@ -145,21 +145,23 @@ function CTASection() {
             >
               <Link
                 to="/contact"
-                className="group inline-flex w-full items-center justify-center gap-3 rounded-md bg-orange px-7 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-orange/20 transition-all hover:bg-orange-600 lg:w-auto"
+                className="group inline-flex w-full items-center justify-center gap-4 rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-600 lg:w-auto"
               >
                 Demander un devis
-                <span className="grid h-6 w-6 place-items-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
-                  <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-                </span>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="text-sm transition-transform group-hover:translate-x-1"
+                />
               </Link>
               <Link
                 to="/#services"
-                className="group inline-flex w-full items-center justify-center gap-3 rounded-md border border-white/30 px-7 py-4 text-sm font-bold uppercase tracking-wider text-white transition-all hover:border-white hover:bg-white/5 lg:w-auto"
+                className="group inline-flex w-full items-center justify-center gap-4 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-white hover:bg-white/5 lg:w-auto"
               >
                 Voir nos services
-                <span className="grid h-6 w-6 place-items-center rounded-full border border-white/40 transition-transform group-hover:translate-x-1">
-                  <FontAwesomeIcon icon={faArrowRight} className="text-[11px]" />
-                </span>
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="text-sm transition-transform group-hover:translate-x-1"
+                />
               </Link>
               <div className="mt-2 flex items-center justify-center gap-2 text-xs text-white/50 lg:justify-end">
                 <FontAwesomeIcon icon={faHeadset} className="text-orange" />

@@ -1,15 +1,20 @@
 import { motion } from 'motion/react'
+import safranLogo from '../assets/safran-logo.png'
 
 const PARTNERS = Array.from({ length: 10 }, (_, i) => ({
-  name: `Logo ${i + 1}`,
+  name: `Safran ${i + 1}`,
+  src: safranLogo,
 }))
 
-function LogoItem({ name }) {
+function LogoItem({ name, src }) {
   return (
     <div className="flex h-16 w-44 shrink-0 items-center justify-center rounded-lg border border-navy/10 bg-white px-6 grayscale opacity-70 transition-all hover:opacity-100 hover:grayscale-0 hover:border-orange/40">
-      <span className="text-lg font-bold uppercase tracking-wider text-navy/60 whitespace-nowrap">
-        {name}
-      </span>
+      <img
+        src={src}
+        alt={name}
+        loading="lazy"
+        className="max-h-10 w-auto object-contain"
+      />
     </div>
   )
 }
@@ -33,7 +38,7 @@ function LogoCarousel() {
           }}
         >
           {loop.map((p, i) => (
-            <LogoItem key={`${p.name}-${i}`} name={p.name} />
+            <LogoItem key={`${p.name}-${i}`} name={p.name} src={p.src} />
           ))}
         </motion.div>
       </div>
