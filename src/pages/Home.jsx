@@ -13,7 +13,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <div className="pt-20 sm:pt-24 lg:pt-28" />
+      <div className="pt-16 sm:pt-20 lg:pt-24" />
       <LogoCarousel />
       <Mission />
       <Services />

@@ -106,7 +106,7 @@ function Navbar() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || mobileOpen
-          ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-navy/5'
+          ? 'bg-white shadow-lg shadow-navy/5'
           : 'bg-transparent'
       }`}
     >

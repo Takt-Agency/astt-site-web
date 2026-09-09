@@ -267,13 +267,19 @@ function Footer() {
             Tous droits réservés.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-            <a href="#" className="transition-colors hover:text-white">
+            <Link
+              to="/mentions-legales"
+              className="transition-colors hover:text-white"
+            >
               Mentions légales
-            </a>
+            </Link>
             <span className="h-3 w-px bg-white/20" />
-            <a href="#" className="transition-colors hover:text-white">
+            <Link
+              to="/politique-confidentialite"
+              className="transition-colors hover:text-white"
+            >
               Politique de confidentialité
-            </a>
+            </Link>
             <span className="h-3 w-px bg-white/20" />
             <span>
               Développé par{' '}

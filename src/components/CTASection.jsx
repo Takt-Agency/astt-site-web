@@ -38,14 +38,6 @@ function CTASection() {
             }}
             aria-hidden="true"
           />
-          <div
-            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-orange/25 blur-3xl"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-orange/10 blur-3xl"
-            aria-hidden="true"
-          />
 
           <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
             {/* Content */}

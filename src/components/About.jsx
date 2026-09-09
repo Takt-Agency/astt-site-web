@@ -29,7 +29,7 @@ function About() {
         className="pointer-events-none absolute right-0 top-20 h-40 w-40 opacity-[0.08]"
         style={{
           backgroundImage:
-            'radial-gradient(circle, #202a44 1.5px, transparent 1.5px)',
+            'radial-gradient(circle, #202b45 1.5px, transparent 1.5px)',
           backgroundSize: '18px 18px',
         }}
         aria-hidden="true"

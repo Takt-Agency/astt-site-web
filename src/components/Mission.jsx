@@ -15,7 +15,7 @@ function Mission() {
   return (
     <section
       id="mission"
-      className="relative overflow-hidden bg-white py-16 lg:py-24"
+      className="relative overflow-hidden bg-white pb-16 pt-8 lg:pb-24 lg:pt-12"
     >
       <div className="mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">

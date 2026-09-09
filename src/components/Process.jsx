@@ -115,12 +115,12 @@ function Process() {
 
       <style>{`
         .process-swiper .swiper-pagination-bullet {
-          background: #202a44;
+          background: #202b45;
           opacity: 0.25;
           transition: all 0.25s ease;
         }
         .process-swiper .swiper-pagination-bullet-active {
-          background: #ff471c;
+          background: #e94a2b;
           opacity: 1;
           width: 24px;
           border-radius: 4px;

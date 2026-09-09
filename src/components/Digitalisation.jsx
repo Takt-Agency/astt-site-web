@@ -45,14 +45,6 @@ function Digitalisation() {
         }}
         aria-hidden="true"
       />
-      <div
-        className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-orange/15 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-32 bottom-10 h-72 w-72 rounded-full bg-orange/10 blur-3xl"
-        aria-hidden="true"
-      />
 
       <div className="relative mx-auto max-w-[1280px] px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -147,8 +139,8 @@ function Digitalisation() {
             >
               <defs>
                 <radialGradient id="lineGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#ff471c" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#ff471c" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#e94a2b" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#e94a2b" stopOpacity="0" />
                 </radialGradient>
               </defs>
               {[
@@ -215,7 +207,7 @@ function Digitalisation() {
                   }}
                   className="flex flex-col items-center gap-1.5"
                 >
-                  <div className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/[0.05] text-orange shadow-xl shadow-black/30 backdrop-blur-sm">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl border border-white/10 bg-white/[0.05] text-orange shadow-xl shadow-black/30">
                     <FontAwesomeIcon icon={n.icon} className="text-base" />
                   </div>
                   <span className="rounded-full bg-white/[0.06] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/80">

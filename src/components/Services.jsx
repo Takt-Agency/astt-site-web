@@ -73,7 +73,7 @@ function Services() {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-white py-16 lg:py-20"
+      className="relative overflow-hidden bg-navy py-16 text-white lg:py-24"
     >
       <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-14">
         {/* Header row */}
@@ -87,7 +87,7 @@ function Services() {
               className="flex items-center gap-3"
             >
               <span className="h-[3px] w-10 bg-orange" />
-              <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-navy">
+              <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-white/85">
                 Nos services
               </span>
             </motion.div>
@@ -98,7 +98,7 @@ function Services() {
               whileInView="show"
               viewport={{ once: true, amount: 0.5 }}
               custom={1}
-              className="mt-5 text-3xl font-bold leading-[1.15] tracking-tight text-navy sm:text-4xl lg:text-[42px]"
+              className="mt-5 text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-[42px]"
             >
               Des services intégrés
               <br />
@@ -112,7 +112,7 @@ function Services() {
             whileInView="show"
             viewport={{ once: true, amount: 0.4 }}
             custom={2}
-            className="max-w-md text-sm leading-relaxed text-ink/70 lg:text-[15px]"
+            className="max-w-md text-sm leading-relaxed text-white/70 lg:text-[15px]"
           >
             De l&apos;import à la digitalisation, ASTT vous accompagne à chaque
             étape avec des services spécialisés, assurés par des équipes
@@ -129,7 +129,7 @@ function Services() {
           >
             <Link
               to="/services"
-              className="group inline-flex items-center gap-3 text-sm font-semibold text-navy transition-colors hover:text-orange"
+              className="group inline-flex items-center gap-3 text-sm font-semibold text-white transition-colors hover:text-orange"
             >
               Voir tous les services
               <span className="grid h-8 w-8 place-items-center rounded-full bg-orange text-white transition-transform group-hover:translate-x-1">
@@ -170,12 +170,12 @@ function Services() {
 
       <style>{`
         .services-swiper .swiper-pagination-bullet {
-          background: #202a44;
-          opacity: 0.25;
+          background: #ffffff;
+          opacity: 0.35;
           transition: all 0.25s ease;
         }
         .services-swiper .swiper-pagination-bullet-active {
-          background: #ff471c;
+          background: #e94a2b;
           opacity: 1;
           width: 24px;
           border-radius: 4px;

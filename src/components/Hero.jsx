@@ -223,13 +223,8 @@ function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
-          className="relative mt-8 -mb-14 overflow-hidden rounded-3xl bg-navy-900/95 px-4 py-6 shadow-2xl shadow-black/30 ring-1 ring-white/5 backdrop-blur-md sm:-mb-16 sm:px-8 sm:py-8 lg:-mb-20 lg:px-12 lg:py-10"
+          className="relative mt-8 -mb-14 overflow-hidden rounded-3xl bg-navy-900 px-4 py-6 ring-1 ring-white/5 sm:-mb-16 sm:px-8 sm:py-8 lg:-mb-20 lg:px-12 lg:py-10"
         >
-          <div
-            className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-orange/15 blur-3xl"
-            aria-hidden="true"
-          />
-
           <div className="relative grid grid-cols-4 gap-2 sm:gap-6 lg:gap-10">
             {STATS.map((s, i) => (
               <div

@@ -8,6 +8,8 @@ import Contact from './pages/Contact'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import Actualites from './pages/Actualites'
+import MentionsLegales from './pages/MentionsLegales'
+import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -37,6 +39,11 @@ function App() {
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/actualites" element={<Actualites />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route
+            path="/politique-confidentialite"
+            element={<PolitiqueConfidentialite />}
+          />
         </Routes>
       </main>
       <Footer />
