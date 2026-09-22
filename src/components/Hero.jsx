@@ -10,6 +10,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import heroImage from '../assets/image hero.png'
 import heroImageMobile from '../assets/hero mobile.png'
+import cover2 from '../assets/cover image 2.webp'
+import cover2Mobile from '../assets/cover mobile 2.webp'
 
 const SLIDES = [
   {
@@ -18,6 +20,8 @@ const SLIDES = [
     description:
       'Des solutions de transit et de transport fiables pour un monde de nouvelles opportunités.',
     cta: { label: 'Découvrir nos services', href: '/services' },
+    image: heroImage,
+    imageMobile: heroImageMobile,
   },
   {
     eyebrow: 'Transit & Douane',
@@ -25,6 +29,8 @@ const SLIDES = [
     description:
       'Une gestion structurée de vos opérations douanières et un suivi rigoureux à chaque étape.',
     cta: { label: 'Nos expertises', href: '/services' },
+    image: cover2,
+    imageMobile: cover2Mobile,
   },
   {
     eyebrow: 'Logistique intégrée',
@@ -32,6 +38,8 @@ const SLIDES = [
     description:
       'Une équipe engagée pour accompagner vos flux du départ à la destination finale.',
     cta: { label: 'Nous contacter', href: '/contact' },
+    image: heroImage,
+    imageMobile: heroImageMobile,
   },
 ]
 
@@ -91,16 +99,25 @@ function Hero() {
       id="accueil"
       className="relative min-h-screen bg-navy pt-24 text-white"
     >
-      {/* Background image (same across slides) */}
+      {/* Background image (per slide with fade transition) */}
       <div className="absolute inset-0 overflow-hidden">
-        <picture>
-          <source media="(min-width: 1024px)" srcSet={heroImage} />
-          <img
-            src={heroImageMobile}
-            alt="Terminal portuaire — logistique ASTT"
-            className="h-full w-full object-cover object-center"
-          />
-        </picture>
+        <AnimatePresence mode="sync">
+          <motion.picture
+            key={active}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="absolute inset-0"
+          >
+            <source media="(min-width: 1024px)" srcSet={slide.image} />
+            <img
+              src={slide.imageMobile}
+              alt="Terminal portuaire — logistique ASTT"
+              className="h-full w-full object-cover object-center"
+            />
+          </motion.picture>
+        </AnimatePresence>
         <div
           className="absolute inset-0"
           style={{

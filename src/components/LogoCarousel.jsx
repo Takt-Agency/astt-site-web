@@ -1,9 +1,15 @@
 import safranLogo from '../assets/safran-logo.png'
+import naniLogo from '../assets/Nani logo.jpg'
+import boudjebelLogo from '../assets/boudjebel logo.png'
 
-const PARTNERS = Array.from({ length: 10 }, (_, i) => ({
-  name: `Safran ${i + 1}`,
-  src: safranLogo,
-}))
+const BASE_PARTNERS = [
+  { name: 'Safran', src: safranLogo },
+  { name: 'Nani', src: naniLogo },
+  { name: 'Boudjebel', src: boudjebelLogo },
+]
+
+// Répète les partenaires pour un défilement fluide et suffisamment long
+const PARTNERS = Array.from({ length: 4 }, () => BASE_PARTNERS).flat()
 
 function LogoItem({ name, src }) {
   return (
