@@ -26,11 +26,11 @@ const NAV_LINKS = [
 ]
 
 const SERVICES = [
+  { label: 'Consulting', href: '/services/consulting' },
+  { label: 'Formalité douanière', href: '/services/formalite-douaniere' },
   { label: 'Import', href: '/services/import' },
   { label: 'Export', href: '/services/export' },
-  { label: 'Traitement de déclaration', href: '/services/traitement-declaration' },
-  { label: 'Comptabilité', href: '/services/comptabilite' },
-  { label: 'Suivi', href: '/services/suivi' },
+  { label: 'Qualité & Suivi', href: '/services/suivi' },
   { label: 'Digitalisation', href: '/services/digitalisation' },
 ]
 
@@ -102,14 +102,13 @@ function Footer() {
             <Link to="/" className="inline-flex items-center">
               <img
                 src={logoWhite}
-                alt="ASTT — Jouni Group — Transit & Logistics"
+                alt="ASTT — Transitaire et commissionnaire en douane"
                 className="h-14 w-auto"
               />
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/60">
-              Assistance Service de Transit et de Transport — filiale du{' '}
-              <span className="font-semibold text-white/80">Jouni Group</span>,
-              spécialisée dans le transit et les opérations douanières.
+              Assistance Service de Transit et Transport, spécialisé dans le
+              transit et les opérations douanières.
             </p>
             <div className="mt-6 flex items-center gap-3">
               {SOCIALS.map((s) => (
@@ -211,10 +210,10 @@ function Footer() {
                   className="mt-1 text-sm text-orange"
                 />
                 <a
-                  href="tel:+21672256821"
+                  href="tel:+21672255600"
                   className="transition-colors hover:text-white"
                 >
-                  72 256 821
+                  72 25 56 00
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/70">
@@ -235,10 +234,10 @@ function Footer() {
                   className="mt-1 text-sm text-orange"
                 />
                 <a
-                  href="mailto:contact@astt-group.com"
+                  href="mailto:contact@astt.tn"
                   className="break-all transition-colors hover:text-white"
                 >
-                  contact@astt-group.com
+                  contact@astt.tn
                 </a>
               </li>
               <li className="flex items-start gap-3 text-white/70">
@@ -261,8 +260,7 @@ function Footer() {
       <div className="relative border-t border-white/10">
         <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-4 px-8 py-6 text-xs text-white/50 sm:px-12 lg:flex-row lg:px-20">
           <p className="text-center lg:text-left">
-            © {year} <span className="font-semibold text-white/70">ASTT</span> —
-            Membre de{' '}
+            © {year} <span className="font-semibold text-white/70">ASTT</span> —{' '}
             <span className="font-semibold text-white/70">Jouni Group</span>.
             Tous droits réservés.
           </p>

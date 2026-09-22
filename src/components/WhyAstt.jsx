@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBolt,
+  faHandshakeAngle,
   faLaptopCode,
   faLocationCrosshairs,
   faUserGraduate,
@@ -14,24 +15,30 @@ import 'swiper/css/pagination'
 const PILLARS = [
   {
     number: '01',
+    icon: faHandshakeAngle,
+    title: 'Satisfaction client',
+    text: 'Construire une relation durable fondée sur la confiance, l’écoute et la qualité de service.',
+  },
+  {
+    number: '02',
     icon: faUserGraduate,
     title: 'Expertise',
     text: 'Une connaissance approfondie du secteur du transit, du transport et des opérations douanières.',
   },
   {
-    number: '02',
+    number: '03',
     icon: faBolt,
     title: 'Réactivité',
     text: 'Des équipes engagées et disponibles pour un suivi rapide de chaque opération.',
   },
   {
-    number: '03',
+    number: '04',
     icon: faLocationCrosshairs,
     title: 'Traçabilité',
-    text: 'Un suivi précis des opérations et une visibilité complète sur vos dossiers.',
+    text: 'Un suivi en temps réel des opérations via notre plateforme pour une visibilité complète sur vos dossiers.',
   },
   {
-    number: '04',
+    number: '05',
     icon: faLaptopCode,
     title: 'Digitalisation',
     text: 'Des solutions modernes pour optimiser vos processus logistiques et administratifs.',
@@ -113,7 +120,7 @@ function WhyAstt() {
             custom={2}
             className="mt-5 max-w-xl text-[15px] leading-relaxed text-ink/70"
           >
-            Quatre piliers guident notre engagement au quotidien et garantissent
+            Cinq piliers guident notre engagement au quotidien et garantissent
             un accompagnement structuré, fiable et orienté résultats.
           </motion.p>
         </div>

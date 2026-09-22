@@ -27,8 +27,8 @@ const CONTACT_ITEMS = [
   {
     icon: faPhone,
     title: 'Téléphone',
-    lines: ['72 256 821'],
-    href: 'tel:+21672256821',
+    lines: ['72 25 56 00'],
+    href: 'tel:+21672255600',
   },
   {
     icon: faMobileScreen,
@@ -39,8 +39,8 @@ const CONTACT_ITEMS = [
   {
     icon: faEnvelope,
     title: 'Email',
-    lines: ['contact@astt-group.com'],
-    href: 'mailto:contact@astt-group.com',
+    lines: ['contact@astt.tn'],
+    href: 'mailto:contact@astt.tn',
   },
 ]
 

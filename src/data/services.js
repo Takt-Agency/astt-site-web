@@ -1,6 +1,6 @@
 import {
   faBoxOpen,
-  faCalculator,
+  faBriefcase,
   faFileInvoice,
   faLaptopCode,
   faShip,
@@ -9,8 +9,70 @@ import {
 
 export const SERVICES = [
   {
-    slug: 'import',
+    slug: 'consulting',
     number: '01',
+    icon: faBriefcase,
+    image:
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop',
+    title: 'Consulting',
+    tagline: 'Étude et accompagnement de vos nouveaux projets',
+    short:
+      'Étude et accompagnement d’ouverture et de création des nouveaux projets.',
+    intro:
+      'ASTT vous accompagne dans la conception et le lancement de vos nouveaux projets, de l’étude préalable jusqu’à leur mise en œuvre opérationnelle.',
+    features: [
+      {
+        title: 'Étude de projet',
+        text: 'Analyse préalable et cadrage des nouveaux projets.',
+      },
+      {
+        title: 'Accompagnement à l’ouverture',
+        text: 'Support à chaque étape de la création et du démarrage.',
+      },
+      {
+        title: 'Conseil stratégique',
+        text: 'Recommandations adaptées à vos besoins et à votre marché.',
+      },
+      {
+        title: 'Coordination',
+        text: 'Interlocuteur unique pour piloter votre projet.',
+      },
+    ],
+  },
+  {
+    slug: 'formalite-douaniere',
+    number: '02',
+    icon: faFileInvoice,
+    image:
+      'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80&auto=format&fit=crop',
+    title: 'Formalité douanière',
+    tagline: 'Suivi des démarches administratives de dédouanement',
+    short:
+      'Suivi des démarches administratives liées au dédouanement auprès des services douaniers.',
+    intro:
+      'ASTT prend en charge l’ensemble des démarches administratives auprès des services douaniers afin d’assurer un dédouanement fluide et conforme de vos opérations.',
+    features: [
+      {
+        title: 'Déclarations douanières',
+        text: 'Constitution et dépôt des déclarations dans le respect de la réglementation.',
+      },
+      {
+        title: 'Interface administration',
+        text: 'Interlocution avec les services douaniers pour vos dossiers.',
+      },
+      {
+        title: 'Système TTN',
+        text: 'Traitement des dossiers directement sur Tunisie TradeNet.',
+      },
+      {
+        title: 'Suivi administratif',
+        text: 'Suivi rigoureux de chaque étape du dédouanement.',
+      },
+    ],
+  },
+  {
+    slug: 'import',
+    number: '03',
     icon: faShip,
     image:
       'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?w=800&q=80&auto=format&fit=crop',
@@ -41,7 +103,7 @@ export const SERVICES = [
   },
   {
     slug: 'export',
-    number: '02',
+    number: '04',
     icon: faTruckFast,
     image:
       'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80&auto=format&fit=crop',
@@ -67,68 +129,6 @@ export const SERVICES = [
       {
         title: 'Suivi opérationnel',
         text: 'Suivi rigoureux des différentes étapes de l’opération.',
-      },
-    ],
-  },
-  {
-    slug: 'traitement-declaration',
-    number: '03',
-    icon: faFileInvoice,
-    image:
-      'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80&auto=format&fit=crop',
-    title: 'Déclaration',
-    tagline: 'Traitement des dossiers et déclarations douanières',
-    short:
-      'Traitement des dossiers et déclarations douanières via le système TTN.',
-    intro:
-      'ASTT assure le traitement des dossiers et des déclarations douanières à travers des processus structurés et adaptés aux opérations de ses clients.',
-    features: [
-      {
-        title: 'Système TTN',
-        text: 'Traitement des dossiers directement sur le système TTN (Tunisie TradeNet).',
-      },
-      {
-        title: 'Fiches & répertoires',
-        text: 'Remplissage des fiches et gestion des répertoires liés aux dossiers.',
-      },
-      {
-        title: 'Gestion documentaire',
-        text: 'Organisation des informations nécessaires au traitement des dossiers.',
-      },
-      {
-        title: 'Suivi administratif',
-        text: 'Un suivi administratif rigoureux de chaque opération.',
-      },
-    ],
-  },
-  {
-    slug: 'comptabilite',
-    number: '04',
-    icon: faCalculator,
-    image:
-      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&auto=format&fit=crop',
-    title: 'Comptabilité',
-    tagline: 'Suivi administratif, financier et comptable',
-    short:
-      'Suivi administratif, financier et comptable de vos opérations et de vos règlements.',
-    intro:
-      'Le service comptabilité assure le suivi administratif et financier des opérations ainsi que la gestion des différents éléments liés aux règlements et à la facturation.',
-    features: [
-      {
-        title: 'Suivi des chèques douane',
-        text: 'Suivi journalier des chèques avec la douane et des quittances.',
-      },
-      {
-        title: 'Gestion des achats',
-        text: 'Prise en charge et suivi des achats liés aux opérations.',
-      },
-      {
-        title: 'Facturation',
-        text: 'Émission et suivi des factures pour chaque opération.',
-      },
-      {
-        title: 'Suivi des règlements',
-        text: 'Suivi rigoureux des règlements clients et fournisseurs.',
       },
     ],
   },

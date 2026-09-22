@@ -2,11 +2,11 @@ import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRight,
+  faBoxArchive,
   faBoxOpen,
   faChartLine,
   faFileInvoice,
   faLaptopCode,
-  faLayerGroup,
   faShip,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +16,7 @@ const NODES = [
   { icon: faShip, label: 'Transit', pos: 'top-16 right-4' },
   { icon: faFileInvoice, label: 'Factures', pos: 'top-1/2 -translate-y-1/2 left-0' },
   { icon: faBoxOpen, label: 'Dossiers', pos: 'top-1/2 -translate-y-1/2 right-0' },
-  { icon: faLayerGroup, label: 'Documents', pos: 'bottom-16 left-4' },
+  { icon: faBoxArchive, label: 'Archivage numérique', pos: 'bottom-16 left-4' },
   { icon: faChartLine, label: 'Suivi', pos: 'bottom-4 right-6' },
 ]
 
@@ -85,7 +85,7 @@ function Digitalisation() {
             >
               ASTT s’appuie sur une plateforme de gestion interne moderne,
               conçue pour centraliser les opérations, accélérer le traitement
-              des dossiers et offrir un suivi rigoureux à chaque client.
+              des dossiers et offrir un suivi en temps réel à chaque client.
             </motion.p>
 
             <motion.p
@@ -96,10 +96,10 @@ function Digitalisation() {
               custom={3}
               className="mt-4 text-sm leading-relaxed text-white/70 lg:text-base"
             >
-              Un outil pensé pour fluidifier notre organisation quotidienne et
-              garantir la <strong className="text-white">qualité</strong>, la{' '}
-              <strong className="text-white">rapidité</strong> et la{' '}
-              <strong className="text-white">fiabilité</strong> de nos services.
+              Garantir la <strong className="text-white">sécurité</strong>, la{' '}
+              <strong className="text-white">rapidité</strong>, la{' '}
+              <strong className="text-white">fiabilité</strong> et la{' '}
+              <strong className="text-white">transparence</strong> de nos services.
             </motion.p>
 
             <motion.div
@@ -114,7 +114,7 @@ function Digitalisation() {
                 href="#contact"
                 className="group inline-flex items-center gap-4 rounded-full bg-orange px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-orange/25 transition-all hover:bg-orange-600"
               >
-                Nous contacter
+                En temps réel
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className="text-sm transition-transform group-hover:translate-x-1"

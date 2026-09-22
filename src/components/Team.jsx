@@ -16,7 +16,7 @@ const TEAM = [
   { name: 'Ahmed Ben Salah', role: 'Directeur Général' },
   { name: 'Sonia Trabelsi', role: 'Responsable Opérations' },
   { name: 'Karim Jouini', role: 'Responsable Transit' },
-  { name: 'Leila Ferjani', role: 'Responsable Comptabilité' },
+  { name: 'Leila Ferjani', role: 'Responsable Formalité douanière' },
   { name: 'Mohamed Trabelsi', role: 'Responsable Import' },
   { name: 'Nadia Khelifi', role: 'Responsable Export' },
 ]

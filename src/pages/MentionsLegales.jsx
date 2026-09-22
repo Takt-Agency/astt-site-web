@@ -17,8 +17,8 @@ const SECTIONS = [
       'Le présent site est édité par la société ASTT — Assistance Service de Transit et de Transport, filiale du Jouni Group.',
       'Forme juridique : Société à Responsabilité Limitée (SARL).',
       'Siège social : Grombalia, Tunisie.',
-      'Téléphone : +216 72 256 821.',
-      'Email : contact@astt-group.com.',
+      'Téléphone : +216 72 25 56 00.',
+      'Email : contact@astt.tn.',
     ],
   },
   {
@@ -30,7 +30,7 @@ const SECTIONS = [
   {
     title: '3. Hébergement',
     body: [
-      'Le site est hébergé par un prestataire d’hébergement web professionnel. Les coordonnées de l’hébergeur peuvent être communiquées sur simple demande écrite adressée à contact@astt-group.com.',
+      'Le site est hébergé par un prestataire d’hébergement web professionnel. Les coordonnées de l’hébergeur peuvent être communiquées sur simple demande écrite adressée à contact@astt.tn.',
     ],
   },
   {

@@ -4,10 +4,9 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import heroImage from '../assets/hero-image.webp'
 
 const STATS = [
-  { value: '1980', label: 'Fondation de Jouni Group' },
-  { value: '16', label: 'Collaborateurs' },
+  { value: '2010', label: 'Fondation d’ASTT' },
+  { value: '20', label: 'Collaborateurs' },
   { value: '6', label: 'Services spécialisés' },
-  { value: '100%', label: 'Société totalement exportatrice' },
 ]
 
 const fadeUp = {
@@ -112,26 +111,13 @@ function About() {
               custom={3}
               className="mt-6 text-sm leading-relaxed text-ink/70 lg:text-base"
             >
-              ASTT est une société tunisienne spécialisée dans le{' '}
-              <strong className="text-navy">transit</strong> et les opérations
-              douanières. Filiale de{' '}
-              <strong className="text-navy">Jouni Group</strong>, fondé en 1980,
-              elle accompagne les entreprises dans leurs opérations
-              d’importation et d’exportation.
-            </motion.p>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.4 }}
-              custom={4}
-              className="mt-4 text-sm leading-relaxed text-ink/70 lg:text-base"
-            >
-              Grâce à une équipe de{' '}
-              <strong className="text-navy">16 collaborateurs</strong>, ASTT
-              mise sur la fiabilité, la réactivité, la qualité de service et la
-              digitalisation.
+              Fondée en <strong className="text-navy">2010</strong>,{' '}
+              <strong className="text-navy">ASTT JOUINI GROUP</strong> s’est
+              imposée comme un acteur de référence du transit et du
+              dédouanement en Tunisie. Forte d’une solide expertise terrain,
+              l’entreprise accompagne aujourd’hui des industries totalement
+              exportatrices dans la sécurisation et l’optimisation de leurs
+              opérations douanières et logistiques.
             </motion.p>
 
             {/* Stats */}
@@ -141,7 +127,7 @@ function About() {
               whileInView="show"
               viewport={{ once: true, amount: 0.3 }}
               custom={5}
-              className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4"
+              className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3"
             >
               {STATS.map((s) => (
                 <div

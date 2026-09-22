@@ -6,10 +6,10 @@ import {
   faArrowRight,
   faBars,
   faBoxOpen,
+  faBriefcase,
   faChevronDown,
   faFileInvoice,
   faLaptopCode,
-  faCalculator,
   faShip,
   faTruckFast,
   faXmark,
@@ -17,6 +17,18 @@ import {
 import Logo from './Logo'
 
 const SERVICES = [
+  {
+    label: 'Consulting',
+    to: '/services/consulting',
+    icon: faBriefcase,
+    desc: 'Étude et accompagnement de vos nouveaux projets.',
+  },
+  {
+    label: 'Formalité douanière',
+    to: '/services/formalite-douaniere',
+    icon: faFileInvoice,
+    desc: 'Suivi des démarches administratives de dédouanement.',
+  },
   {
     label: 'Import',
     to: '/services/import',
@@ -30,19 +42,7 @@ const SERVICES = [
     desc: 'Gestion des opérations d’exportation.',
   },
   {
-    label: 'Traitement de déclaration',
-    to: '/services/traitement-declaration',
-    icon: faFileInvoice,
-    desc: 'Traitement des dossiers et déclarations douanières.',
-  },
-  {
-    label: 'Comptabilité',
-    to: '/services/comptabilite',
-    icon: faCalculator,
-    desc: 'Suivi administratif, financier et comptable.',
-  },
-  {
-    label: 'Suivi',
+    label: 'Qualité & Suivi',
     to: '/services/suivi',
     icon: faBoxOpen,
     desc: 'Suivi des opérations et des dossiers.',

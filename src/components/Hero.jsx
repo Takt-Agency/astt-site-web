@@ -5,7 +5,6 @@ import {
   faArrowDown,
   faArrowRight,
   faCalendarDays,
-  faEarthAfrica,
   faLayerGroup,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +13,7 @@ import heroImageMobile from '../assets/hero mobile.png'
 
 const SLIDES = [
   {
-    eyebrow: 'Transit & Logistics',
+    eyebrow: 'Transitaire et commissionnaire en douane',
     title: ['Plus loin', 'avec vous'],
     description:
       'Des solutions de transit et de transport fiables pour un monde de nouvelles opportunités.',
@@ -37,9 +36,8 @@ const SLIDES = [
 ]
 
 const STATS = [
-  { icon: faCalendarDays, value: '1980', label: 'Fondation' },
-  { icon: faUsers, value: '16', label: 'Collaborateurs' },
-  { icon: faEarthAfrica, value: '100%', label: 'Export' },
+  { icon: faCalendarDays, value: '2010', label: 'Fondation' },
+  { icon: faUsers, value: '20', label: 'Collaborateurs' },
   { icon: faLayerGroup, value: '6', label: 'Métiers' },
 ]
 
@@ -225,7 +223,7 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
           className="relative mt-8 -mb-14 overflow-hidden rounded-3xl bg-navy-900 px-4 py-6 ring-1 ring-white/5 sm:-mb-16 sm:px-8 sm:py-8 lg:-mb-20 lg:px-12 lg:py-10"
         >
-          <div className="relative grid grid-cols-4 gap-2 sm:gap-6 lg:gap-10">
+          <div className="relative grid grid-cols-3 gap-2 sm:gap-6 lg:gap-10">
             {STATS.map((s, i) => (
               <div
                 key={s.label}

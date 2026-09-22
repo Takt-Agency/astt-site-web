@@ -1,29 +1,21 @@
 import { motion } from 'motion/react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/pagination'
 
 const STEPS = [
   {
     number: '01',
-    title: 'Analyse de vos besoins',
-    text: 'Étude complète de vos flux et de vos contraintes opérationnelles.',
+    title: 'Maîtrise des procédures',
+    text: 'Une bonne connaissance concrète des formalités, des documents et des étapes nécessaires au bon déroulement de l’opération.',
   },
   {
     number: '02',
-    title: 'Mise en place des solutions',
-    text: 'Définition des procédures et déploiement des outils adaptés.',
+    title: 'Suivi et coordination',
+    text: 'Vous informer, vous assister et intervenir rapidement à chaque étape de l’opération.',
   },
   {
     number: '03',
-    title: 'Suivi & coordination',
-    text: 'Pilotage des opérations avec un point de contact dédié.',
-  },
-  {
-    number: '04',
-    title: 'Livraison & accompagnement',
-    text: 'Suivi post-livraison et accompagnement long terme.',
+    title: 'Livraison et accompagnement',
+    text: 'Une continuité de suivi et d’accompagnement via',
+    link: { label: 'notre plateforme', href: 'https://app.astt.tn' },
   },
 ]
 
@@ -50,6 +42,20 @@ function StepCard({ s }) {
       <h3 className="relative mt-6 text-lg font-bold text-navy">{s.title}</h3>
       <p className="relative mt-2 flex-1 text-sm leading-relaxed text-ink/65">
         {s.text}
+        {s.link && (
+          <>
+            {' '}
+            <a
+              href={s.link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-orange hover:underline"
+            >
+              {s.link.label}
+            </a>
+            .
+          </>
+        )}
       </p>
 
       <span className="relative mt-5 block h-[2px] w-8 rounded-full bg-orange transition-all group-hover:w-16" />
@@ -91,41 +97,12 @@ function Process() {
           </motion.h2>
         </div>
 
-        <div className="mt-12 lg:mt-14">
-          <Swiper
-            modules={[Pagination]}
-            slidesPerView={1.15}
-            spaceBetween={16}
-            pagination={{ clickable: true }}
-            breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 20 },
-              900: { slidesPerView: 3, spaceBetween: 24 },
-              1200: { slidesPerView: 4, spaceBetween: 24 },
-            }}
-            className="process-swiper !pb-14"
-          >
-            {STEPS.map((s) => (
-              <SwiperSlide key={s.number} className="!h-auto">
-                <StepCard s={s} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:mt-14 lg:grid-cols-3">
+          {STEPS.map((s) => (
+            <StepCard key={s.number} s={s} />
+          ))}
         </div>
       </div>
-
-      <style>{`
-        .process-swiper .swiper-pagination-bullet {
-          background: #202b45;
-          opacity: 0.25;
-          transition: all 0.25s ease;
-        }
-        .process-swiper .swiper-pagination-bullet-active {
-          background: #e94a2b;
-          opacity: 1;
-          width: 24px;
-          border-radius: 4px;
-        }
-      `}</style>
     </section>
   )
 }

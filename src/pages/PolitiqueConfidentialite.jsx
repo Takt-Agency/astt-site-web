@@ -67,7 +67,7 @@ const SECTIONS = [
       '• Droit à la limitation ou à l’opposition du traitement ;',
       '• Droit à la portabilité de vos données ;',
       '• Droit de retirer votre consentement à tout moment.',
-      'Pour exercer ces droits, adressez votre demande à : contact@astt-group.com.',
+      'Pour exercer ces droits, adressez votre demande à : contact@astt.tn.',
     ],
   },
   {
@@ -87,7 +87,7 @@ const SECTIONS = [
     title: '10. Contact',
     body: [
       'Pour toute question concernant la présente politique de confidentialité ou le traitement de vos données personnelles, vous pouvez nous contacter :',
-      '• Par email : contact@astt-group.com',
+      '• Par email : contact@astt.tn',
       '• Par courrier : ASTT — Grombalia, Tunisie',
     ],
   },

@@ -9,7 +9,6 @@ import {
   faHandshake,
 } from '@fortawesome/free-solid-svg-icons'
 import heroImage from '../assets/hero-image.webp'
-import JouniGroup from '../components/JouniGroup'
 import WhyAstt from '../components/WhyAstt'
 import Team from '../components/Team'
 
@@ -32,14 +31,13 @@ const PILLARS = [
 ]
 
 const STATS = [
-  { value: '1980', label: 'Fondation de Jouni Group' },
-  { value: '16', label: 'Collaborateurs' },
+  { value: '2010', label: 'Fondation d’ASTT' },
+  { value: '20', label: 'Collaborateurs' },
   { value: '6', label: 'Services spécialisés' },
-  { value: '100%', label: 'Société totalement exportatrice' },
 ]
 
 const HIGHLIGHTS = [
-  'Filiale du Jouni Group depuis sa création',
+  'Un savoir-faire familial depuis 1980',
   'Équipe expérimentée et dédiée',
   'Approche digitalisée des opérations',
   'Suivi rigoureux de chaque dossier',
@@ -205,26 +203,13 @@ function About() {
                 custom={2}
                 className="mt-6 text-sm leading-relaxed text-ink/70 lg:text-base"
               >
-                ASTT est une société tunisienne spécialisée dans le{' '}
-                <strong className="text-navy">transit</strong> et les opérations
-                douanières. Filiale de{' '}
-                <strong className="text-navy">Jouni Group</strong>, fondé en
-                1980, elle accompagne les entreprises dans leurs opérations
-                d’importation et d’exportation.
-              </motion.p>
-
-              <motion.p
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.4 }}
-                custom={3}
-                className="mt-4 text-sm leading-relaxed text-ink/70 lg:text-base"
-              >
-                Totalement exportatrice, ASTT s’appuie sur une équipe dynamique
-                de <strong className="text-navy">16 collaborateurs</strong> et
-                mise sur la fiabilité, la réactivité, la qualité de service et
-                la digitalisation.
+                Fondée en <strong className="text-navy">2010</strong>,{' '}
+                <strong className="text-navy">ASTT JOUINI GROUP</strong> s’est
+                imposée comme un acteur de référence du transit et du
+                dédouanement en Tunisie. Forte d’une solide expertise terrain,
+                l’entreprise accompagne aujourd’hui des industries totalement
+                exportatrices dans la sécurisation et l’optimisation de leurs
+                opérations douanières et logistiques.
               </motion.p>
 
               <motion.ul
@@ -253,7 +238,7 @@ function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
-            className="mt-14 grid grid-cols-2 gap-4 rounded-2xl border border-navy/10 bg-white p-6 shadow-lg shadow-navy/5 sm:grid-cols-4 lg:mt-16 lg:p-8"
+            className="mt-14 grid grid-cols-2 gap-4 rounded-2xl border border-navy/10 bg-white p-6 shadow-lg shadow-navy/5 sm:grid-cols-3 lg:mt-16 lg:p-8"
           >
             {STATS.map((s, i) => (
               <div
@@ -336,7 +321,6 @@ function About() {
 
       {/* Reuse existing sections */}
       <WhyAstt />
-      <JouniGroup />
       <Team />
 
       {/* Final CTA band */}

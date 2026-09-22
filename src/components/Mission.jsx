@@ -55,10 +55,9 @@ function Mission() {
               custom={2}
               className="mt-6 max-w-xl text-[15px] leading-relaxed text-ink/70"
             >
-              Nous accompagnons les entreprises dans leurs opérations de
-              transit, de transport et de logistique, en apportant une
-              expertise reconnue et un engagement quotidien pour la fluidité
-              de leurs échanges internationaux.
+              Notre mission est de simplifier et sécuriser les opérations de
+              nos clients en leur apportant une expertise professionnelle, une
+              communication transparente et un suivi rigoureux à chaque étape.
             </motion.p>
 
             <motion.p
@@ -69,9 +68,8 @@ function Mission() {
               custom={3}
               className="mt-4 max-w-xl text-[15px] leading-relaxed text-ink/70"
             >
-              Chaque dossier est traité avec rigueur, transparence et
-              réactivité, afin d&apos;offrir à nos clients une expérience
-              logistique fiable et sereine.
+              Nous plaçons la satisfaction client, la conformité réglementaire
+              et l&apos;amélioration continue au cœur de notre activité.
             </motion.p>
 
             <motion.div
@@ -122,7 +120,7 @@ function Mission() {
                   <div className="text-xs uppercase tracking-wider text-white/60">
                     Depuis
                   </div>
-                  <div className="text-lg font-bold leading-none">1980</div>
+                  <div className="text-lg font-bold leading-none">2010</div>
                 </div>
               </div>
             </div>

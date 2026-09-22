@@ -8,7 +8,7 @@ function Logo({ variant = 'dark', className = '' }) {
     <Link to="/" className={`inline-flex items-center ${className}`}>
       <img
         src={src}
-        alt="ASTT — Jouni Group — Transit & Logistics"
+        alt="ASTT — Transitaire et commissionnaire en douane"
         className="h-12 w-auto"
       />
     </Link>

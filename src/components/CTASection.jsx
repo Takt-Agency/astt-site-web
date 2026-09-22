@@ -91,7 +91,7 @@ function CTASection() {
                 className="mt-8 flex flex-wrap items-center gap-4"
               >
                 <a
-                  href="tel:+21672256821"
+                  href="tel:+21672255600"
                   className="group flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 transition-all hover:border-orange/50 hover:bg-white/[0.08]"
                 >
                   <span className="grid h-8 w-8 place-items-center rounded-full bg-orange text-white">
@@ -102,13 +102,13 @@ function CTASection() {
                       Appelez-nous
                     </div>
                     <div className="text-sm font-bold text-white">
-                      72 256 821
+                      72 25 56 00
                     </div>
                   </div>
                 </a>
 
                 <a
-                  href="mailto:contact@astt-group.com"
+                  href="mailto:contact@astt.tn"
                   className="group flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2.5 transition-all hover:border-orange/50 hover:bg-white/[0.08]"
                 >
                   <span className="grid h-8 w-8 place-items-center rounded-full bg-orange text-white">
@@ -119,7 +119,7 @@ function CTASection() {
                       Écrivez-nous
                     </div>
                     <div className="text-sm font-bold text-white">
-                      contact@astt-group.com
+                      contact@astt.tn
                     </div>
                   </div>
                 </a>
