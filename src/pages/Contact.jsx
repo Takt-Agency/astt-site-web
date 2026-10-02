@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -17,6 +18,7 @@ import {
   faInstagram,
   faLinkedinIn,
 } from '@fortawesome/free-brands-svg-icons'
+import { sendContactMessage } from '../services/api'
 
 const CONTACT_ITEMS = [
   {
@@ -73,13 +75,50 @@ const fadeUp = {
   }),
 }
 
-function Contact() {
-  const [sent, setSent] = useState(false)
+const EMPTY_FORM = {
+  name: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+  consent: false,
+  // Champ piège invisible pour les robots
+  website: '',
+}
 
-  const handleSubmit = (e) => {
+function Contact() {
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [sending, setSending] = useState(false)
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
+
+  const setField = (field) => (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    setForm((f) => ({ ...f, [field]: value }))
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
-    setTimeout(() => setSent(false), 4000)
+    if (sending) return
+    setError('')
+    setSending(true)
+    try {
+      await sendContactMessage({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        subject: form.subject,
+        message: form.message,
+        website: form.website,
+      })
+      setForm(EMPTY_FORM)
+      setSent(true)
+      setTimeout(() => setSent(false), 6000)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -211,6 +250,9 @@ function Contact() {
                     <input
                       type="text"
                       required
+                      maxLength={120}
+                      value={form.name}
+                      onChange={setField('name')}
                       placeholder="Votre nom"
                       className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-ink/40 outline-none transition-colors focus:border-orange"
                     />
@@ -222,6 +264,9 @@ function Contact() {
                     <input
                       type="email"
                       required
+                      maxLength={160}
+                      value={form.email}
+                      onChange={setField('email')}
                       placeholder="vous@email.com"
                       className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-ink/40 outline-none transition-colors focus:border-orange"
                     />
@@ -235,6 +280,9 @@ function Contact() {
                     </span>
                     <input
                       type="tel"
+                      maxLength={40}
+                      value={form.phone}
+                      onChange={setField('phone')}
                       placeholder="+216 ..."
                       className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-ink/40 outline-none transition-colors focus:border-orange"
                     />
@@ -245,7 +293,8 @@ function Contact() {
                     </span>
                     <select
                       required
-                      defaultValue=""
+                      value={form.subject}
+                      onChange={setField('subject')}
                       className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy outline-none transition-colors focus:border-orange"
                     >
                       <option value="" disabled>
@@ -265,6 +314,9 @@ function Contact() {
                   <textarea
                     required
                     rows="5"
+                    maxLength={5000}
+                    value={form.message}
+                    onChange={setField('message')}
                     placeholder="Décrivez brièvement votre besoin..."
                     className="w-full resize-none rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy placeholder:text-ink/40 outline-none transition-colors focus:border-orange"
                   />
@@ -274,24 +326,61 @@ function Contact() {
                   <input
                     type="checkbox"
                     required
+                    checked={form.consent}
+                    onChange={setField('consent')}
                     className="mt-0.5 h-4 w-4 accent-orange"
                   />
                   <span>
                     J&apos;accepte que mes informations soient utilisées pour
                     répondre à ma demande. Consultez notre{' '}
-                    <a href="#" className="font-semibold text-orange hover:underline">
+                    <Link
+                      to="/politique-confidentialite"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-orange hover:underline"
+                    >
                       politique de confidentialité
-                    </a>
+                    </Link>
                     .
                   </span>
                 </label>
 
+                <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={form.website}
+                    onChange={setField('website')}
+                  />
+                </div>
+
+                {error && (
+                  <p
+                    role="alert"
+                    className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                  >
+                    {error}
+                  </p>
+                )}
+                {sent && (
+                  <p
+                    role="status"
+                    className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"
+                  >
+                    Merci, votre message a bien été envoyé. Notre équipe vous
+                    répondra dans les plus brefs délais.
+                  </p>
+                )}
+
                 <button
                   type="submit"
                   className="group inline-flex items-center gap-3 rounded-md bg-orange px-7 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-orange/20 transition-all hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
-                  disabled={sent}
+                  disabled={sending || sent}
                 >
-                  {sent ? (
+                  {sending ? (
+                    'Envoi en cours…'
+                  ) : sent ? (
                     <>
                       <FontAwesomeIcon icon={faCheck} className="text-sm" />
                       Message envoyé !

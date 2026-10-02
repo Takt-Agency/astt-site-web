@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRight,
+  faCheck,
   faClock,
   faEnvelope,
   faLocationDot,
@@ -16,6 +18,7 @@ import {
   faLinkedinIn,
 } from '@fortawesome/free-brands-svg-icons'
 import logoWhite from '../assets/logo-white.png'
+import { subscribeNewsletter } from '../services/api'
 
 const NAV_LINKS = [
   { label: 'Accueil', href: '/' },
@@ -42,6 +45,27 @@ const SOCIALS = [
 
 function Footer() {
   const year = new Date().getFullYear()
+  const [email, setEmail] = useState('')
+  // Champ piège invisible pour les robots
+  const [website, setWebsite] = useState('')
+  const [subscribing, setSubscribing] = useState(false)
+  const [feedback, setFeedback] = useState(null)
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault()
+    if (subscribing) return
+    setFeedback(null)
+    setSubscribing(true)
+    try {
+      await subscribeNewsletter({ email, website })
+      setEmail('')
+      setFeedback({ ok: true, text: 'Merci, votre inscription est bien enregistrée.' })
+    } catch (err) {
+      setFeedback({ ok: false, text: err.message })
+    } finally {
+      setSubscribing(false)
+    }
+  }
 
   return (
     <footer className="relative overflow-hidden bg-navy text-white">
@@ -67,24 +91,53 @@ function Footer() {
               logistique.
             </p>
           </div>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex w-full max-w-md items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] p-1.5 lg:w-auto"
-          >
-            <input
-              type="email"
-              placeholder="Votre adresse email"
-              className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none"
-              required
-            />
-            <button
-              type="submit"
-              aria-label="S’abonner"
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange text-white transition-colors hover:bg-orange-600"
+          <div className="w-full max-w-md lg:w-auto">
+            <form
+              onSubmit={handleSubscribe}
+              className="relative flex w-full items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] p-1.5"
             >
-              <FontAwesomeIcon icon={faPaperPlane} className="text-sm" />
-            </button>
-          </form>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setFeedback(null)
+                }}
+                maxLength={160}
+                placeholder="Votre adresse email"
+                className="min-w-0 flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                required
+              />
+              <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                aria-label="S’abonner"
+                disabled={subscribing}
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange text-white transition-colors hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                <FontAwesomeIcon
+                  icon={feedback?.ok ? faCheck : faPaperPlane}
+                  className="text-sm"
+                />
+              </button>
+            </form>
+            {feedback && (
+              <p
+                role={feedback.ok ? 'status' : 'alert'}
+                className={`mt-2 px-4 text-xs ${feedback.ok ? 'text-mint' : 'text-orange'}`}
+              >
+                {feedback.text}
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
