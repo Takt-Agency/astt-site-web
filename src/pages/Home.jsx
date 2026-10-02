@@ -13,7 +13,6 @@ function Home() {
   return (
     <>
       <Hero />
-      <div className="pt-16 sm:pt-20 lg:pt-24" />
       <LogoCarousel />
       <Historique />
       <Mission />

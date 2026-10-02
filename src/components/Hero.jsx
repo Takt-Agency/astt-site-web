@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faArrowDown,
   faArrowRight,
   faCalendarDays,
   faLayerGroup,
@@ -44,9 +43,9 @@ const SLIDES = [
 ]
 
 const STATS = [
-  { icon: faCalendarDays, value: '2010', label: 'Fondation' },
-  { icon: faUsers, value: '20', label: 'Collaborateurs' },
-  { icon: faLayerGroup, value: '6', label: 'Métiers' },
+  { icon: faCalendarDays, value: '2010', label: ['Année de', 'création'] },
+  { icon: faUsers, value: '20+', label: ['Experts', 'à votre service'] },
+  { icon: faLayerGroup, value: '6', label: ['Pôles d’activité', 'à l’international'] },
 ]
 
 const AUTOPLAY_MS = 6000
@@ -57,8 +56,6 @@ function Hero() {
   const dragStartX = useRef(null)
   const dragged = useRef(false)
 
-  const goTo = (i) =>
-    setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length)
   const next = () => setActive((p) => (p + 1) % SLIDES.length)
   const prev = () => setActive((p) => (p - 1 + SLIDES.length) % SLIDES.length)
 
@@ -122,141 +119,95 @@ function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(180deg, rgba(19,26,43,0.9) 0%, rgba(19,26,43,0.75) 20%, rgba(19,26,43,0.4) 40%, rgba(19,26,43,0) 55%)',
+              'linear-gradient(180deg, rgba(19,26,43,0.9) 0%, rgba(19,26,43,0.65) 30%, rgba(19,26,43,0.6) 65%, rgba(19,26,43,0.7) 100%)',
           }}
         />
       </div>
 
       {/* Main hero content */}
       <div
-        className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-[1440px] flex-col px-6 pt-8 sm:px-10 lg:px-14 lg:pt-16"
+        className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-[1440px] flex-col px-6 sm:px-10 lg:px-14"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerCancel}
         style={{ touchAction: 'pan-y' }}
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-          >
-            <div className="flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-orange" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/85 sm:text-[11px]">
-                {slide.eyebrow}
-              </span>
-            </div>
+        <div className="flex flex-1 items-center justify-center py-6">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="flex w-full flex-col items-center text-center"
+            >
+              <div className="flex items-center justify-center gap-4 sm:gap-8">
+                <span className="h-[2px] w-6 shrink-0 bg-orange sm:w-9" />
+                <span className="text-[11px] font-medium uppercase tracking-[0.3em] text-white/90 sm:text-sm lg:text-[15px] lg:tracking-[0.35em]">
+                  {slide.eyebrow}
+                </span>
+                <span className="h-[2px] w-6 shrink-0 bg-white/70 sm:w-9" />
+              </div>
 
-            <h1 className="mt-4 max-w-[600px] font-extrabold leading-[0.95] tracking-tight text-white text-[44px] sm:text-5xl lg:text-[72px]">
-              {slide.title[0]}
-              <br />
-              {slide.title[1]}
-            </h1>
+              <h1 className="mt-5 max-w-4xl font-extrabold leading-[1.02] tracking-tight text-white text-[40px] sm:text-6xl lg:text-[76px]">
+                {slide.title[0]}
+                <br />
+                {slide.title[1]}
+              </h1>
 
-            <p className="mt-5 max-w-sm text-[13px] leading-relaxed text-white/80 sm:text-sm lg:text-[15px]">
-              {slide.description}
-            </p>
+              <p className="mt-5 max-w-md text-sm leading-relaxed text-white/85 sm:max-w-lg sm:text-base lg:text-lg">
+                {slide.description}
+              </p>
 
-            <div className="mt-7">
-              <a
-                href={slide.cta.href}
-                onClick={(e) => {
-                  if (dragged.current) e.preventDefault()
-                }}
-                className="group inline-flex items-center gap-4 rounded-full bg-orange px-6 py-3 text-[13px] font-semibold text-white shadow-lg shadow-orange/30 transition-all hover:bg-orange-600 sm:text-sm"
-              >
-                {slide.cta.label}
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className="text-sm transition-transform group-hover:translate-x-1"
-                />
-              </a>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Slide indicators + scroll cue */}
-        <div className="mt-auto flex items-end justify-between pt-10">
-          <div className="flex items-end gap-5 text-[13px] font-semibold">
-            {SLIDES.map((_, i) => {
-              const isActive = i === active
-              const label = String(i + 1).padStart(2, '0')
-              return (
-                <button
-                  key={i}
-                  type="button"
+              <div className="mt-8">
+                <a
+                  href={slide.cta.href}
                   onClick={(e) => {
-                    if (dragged.current) {
-                      e.preventDefault()
-                      return
-                    }
-                    goTo(i)
+                    if (dragged.current) e.preventDefault()
                   }}
-                  className={`flex flex-col items-start transition-colors ${
-                    isActive ? 'text-orange' : 'text-white/50 hover:text-white/80'
-                  }`}
+                  className="group inline-flex items-center gap-5 rounded-full bg-orange px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange/30 transition-all hover:bg-orange-600 lg:text-[15px]"
                 >
-                  {label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="hero-slide-underline"
-                      className="mt-1 h-[2px] w-5 bg-orange"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 400,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </button>
-              )
-            })}
-          </div>
-
-          <a
-            href="#stats"
-            className="group flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 transition-colors hover:text-white"
-          >
-            <span className="hidden text-right leading-tight sm:block">
-              Scroll
-              <br />
-              pour explorer
-            </span>
-            <span className="grid h-9 w-9 place-items-center rounded-full border border-white/40 transition-all group-hover:border-white group-hover:bg-white/10">
-              <FontAwesomeIcon icon={faArrowDown} className="text-xs" />
-            </span>
-          </a>
+                  {slide.cta.label}
+                  <FontAwesomeIcon
+                    icon={faArrowRight}
+                    className="text-sm transition-transform group-hover:translate-x-1"
+                  />
+                </a>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Stats card — floats at the bottom of the hero */}
+        {/* Stats card — pinned at the bottom of the hero */}
         <motion.div
           id="stats"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
-          className="relative mt-8 -mb-14 overflow-hidden rounded-3xl bg-navy-900 px-4 py-6 ring-1 ring-white/5 sm:-mb-16 sm:px-8 sm:py-8 lg:-mb-20 lg:px-12 lg:py-10"
+          className="relative mx-auto mb-6 w-full max-w-[1260px] rounded-3xl bg-navy-900/90 px-4 py-6 ring-1 ring-white/10 backdrop-blur-sm sm:px-8 lg:mb-8 lg:px-14 lg:py-7"
         >
-          <div className="relative grid grid-cols-3 gap-2 sm:gap-6 lg:gap-10">
+          <div className="grid grid-cols-3 gap-2 sm:gap-6">
             {STATS.map((s, i) => (
               <div
-                key={s.label}
-                className={`flex flex-col items-center text-center text-white sm:items-start sm:text-left ${
-                  i > 0 ? 'sm:border-l sm:border-white/10 sm:pl-6 lg:pl-10' : ''
+                key={s.value}
+                className={`flex flex-col items-center gap-2 text-center text-white md:flex-row md:items-end md:gap-5 md:text-left lg:gap-10 ${
+                  i > 0 ? 'md:border-l md:border-white/10 md:pl-6 lg:pl-20' : ''
                 }`}
               >
-                <FontAwesomeIcon
-                  icon={s.icon}
-                  className="text-base text-white/85 sm:text-xl lg:text-2xl"
-                />
-                <div className="mt-2 text-lg font-extrabold leading-none tracking-tight sm:mt-3 sm:text-3xl lg:text-[36px]">
-                  {s.value}
+                <div className="flex flex-col items-center md:items-start">
+                  <FontAwesomeIcon
+                    icon={s.icon}
+                    className="text-base text-white/85 sm:text-xl lg:text-2xl"
+                  />
+                  <div className="mt-2 text-xl font-extrabold leading-none tracking-tight sm:text-3xl lg:text-[38px]">
+                    {s.value}
+                  </div>
                 </div>
-                <div className="mt-1.5 max-w-[130px] text-[10px] leading-tight text-white/70 sm:mt-2 sm:max-w-none sm:text-sm">
-                  {s.label}
+                <div className="text-[10px] leading-snug text-white/70 sm:text-xs lg:text-sm">
+                  {s.label[0]} <br className="hidden md:block" />
+                  {s.label[1]}
                 </div>
               </div>
             ))}
