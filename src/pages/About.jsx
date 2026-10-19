@@ -10,7 +10,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import heroImage from '../assets/hero-image.webp'
 import WhyAstt from '../components/WhyAstt'
-import Team from '../components/Team'
 
 const PILLARS = [
   {
@@ -321,7 +320,6 @@ function About() {
 
       {/* Reuse existing sections */}
       <WhyAstt />
-      <Team />
 
       {/* Final CTA band */}
       <section className="relative bg-white py-12 lg:py-16">

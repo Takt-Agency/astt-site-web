@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Certification from './pages/Certification'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import Actualites from './pages/Actualites'
@@ -39,6 +40,7 @@ function App() {
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/actualites" element={<Actualites />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/certification" element={<Certification />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route
             path="/politique-confidentialite"

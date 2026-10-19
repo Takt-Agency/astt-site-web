@@ -88,7 +88,7 @@ const SECTIONS = [
     body: [
       'Pour toute question concernant la présente politique de confidentialité ou le traitement de vos données personnelles, vous pouvez nous contacter :',
       '• Par email : contact@astt.tn',
-      '• Par courrier : ASTT — Grombalia, Tunisie',
+      '• Par courrier : ASTT — Av. République, Immeuble Gallala, 2ème étage, Grombalia 8030 – Tunisie, BP : 73',
     ],
   },
 ]

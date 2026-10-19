@@ -4,7 +4,6 @@ import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowRight,
-  faBuilding,
   faCheck,
   faClock,
   faEnvelope,
@@ -20,11 +19,23 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { sendContactMessage } from '../services/api'
 
+const ADDRESS_QUERY = encodeURIComponent(
+  'Avenue de la République, Immeuble Gallala, Grombalia 8030, Tunisie',
+)
+const MAPS_URL = `https://maps.google.com/?q=${ADDRESS_QUERY}`
+const MAPS_EMBED_URL = `https://www.google.com/maps?q=${ADDRESS_QUERY}&hl=fr&z=16&output=embed`
+
 const CONTACT_ITEMS = [
   {
     icon: faLocationDot,
     title: 'Adresse',
-    lines: ['Siège social', 'Grombalia, Tunisie'],
+    lines: [
+      'Av. République, Immeuble Gallala, 2ème étage',
+      'Grombalia 8030 – Tunisie',
+      'BP : 73',
+    ],
+    href: MAPS_URL,
+    external: true,
   },
   {
     icon: faPhone,
@@ -193,6 +204,9 @@ function Contact() {
                 >
                   <Wrapper
                     {...(c.href ? { href: c.href } : {})}
+                    {...(c.external
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
                     className="group flex h-full flex-col gap-3 rounded-2xl border border-navy/10 bg-white p-6 transition-all hover:-translate-y-1 hover:border-orange/40 hover:shadow-lg hover:shadow-navy/5"
                   >
                     <div className="grid h-11 w-11 place-items-center rounded-xl bg-mint/60 text-navy transition-colors group-hover:bg-orange group-hover:text-white">
@@ -400,7 +414,7 @@ function Contact() {
               </form>
             </motion.div>
 
-            {/* Right column: hours + company + socials */}
+            {/* Right column: hours + socials */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -439,30 +453,9 @@ function Contact() {
                 </ul>
               </div>
 
-              {/* Company card */}
-              <div className="mt-6 rounded-3xl border border-navy/10 bg-mint/40 p-8">
+              {/* Socials */}
+              <div className="mt-6 rounded-3xl border border-navy/10 bg-mint/40 px-8 py-6">
                 <div className="flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-lg bg-orange text-white">
-                    <FontAwesomeIcon icon={faBuilding} className="text-base" />
-                  </div>
-                  <h3 className="text-lg font-bold text-navy">Informations</h3>
-                </div>
-                <dl className="mt-6 space-y-3 text-sm">
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-navy/60">Identifiant unique</dt>
-                    <dd className="font-semibold text-navy">1163380 M/A/M 000</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-navy/60">Capital</dt>
-                    <dd className="font-semibold text-navy">10 000 DT</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-navy/60">Groupe</dt>
-                    <dd className="font-semibold text-navy">Jouni Group</dd>
-                  </div>
-                </dl>
-
-                <div className="mt-6 flex items-center gap-3 border-t border-navy/10 pt-6">
                   <span className="text-xs font-semibold uppercase tracking-wider text-navy/70">
                     Suivez-nous
                   </span>
@@ -505,12 +498,12 @@ function Contact() {
                     Notre localisation
                   </div>
                   <div className="text-sm font-bold">
-                    Grombalia, Tunisie
+                    Av. République, Immeuble Gallala, Grombalia 8030
                   </div>
                 </div>
               </div>
               <a
-                href="https://maps.google.com/?q=Grombalia,+Tunisie"
+                href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-md bg-orange px-4 py-2 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-orange-600"
@@ -523,8 +516,8 @@ function Contact() {
               </a>
             </div>
             <iframe
-              title="ASTT — Grombalia, Tunisie"
-              src="https://www.google.com/maps?q=Grombalia,+Tunisie&hl=fr&z=13&output=embed"
+              title="ASTT — Av. République, Immeuble Gallala, Grombalia 8030, Tunisie"
+              src={MAPS_EMBED_URL}
               className="h-[400px] w-full border-0 lg:h-[480px]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

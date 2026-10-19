@@ -1,6 +1,7 @@
 import Hero from '../components/Hero'
 import LogoCarousel from '../components/LogoCarousel'
 import Historique from '../components/Historique'
+import CertificationIso from '../components/CertificationIso'
 import Mission from '../components/Mission'
 import Services from '../components/Services'
 import About from '../components/About'
@@ -15,6 +16,7 @@ function Home() {
       <Hero />
       <LogoCarousel />
       <Historique />
+      <CertificationIso />
       <Mission />
       <Services />
       <About />

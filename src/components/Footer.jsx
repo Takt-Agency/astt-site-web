@@ -255,7 +255,13 @@ function Footer() {
                   icon={faLocationDot}
                   className="mt-1 text-sm text-orange"
                 />
-                <span>Siège social — Grombalia, Tunisie</span>
+                <span>
+                  Av. République, Immeuble Gallala, 2ème étage
+                  <br />
+                  Grombalia 8030 – Tunisie
+                  <br />
+                  BP : 73
+                </span>
               </li>
               <li className="flex items-start gap-3 text-white/70">
                 <FontAwesomeIcon

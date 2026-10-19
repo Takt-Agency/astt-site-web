@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import missionImage from '../assets/mission-operations.jpg'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -102,9 +103,11 @@ function Mission() {
           >
             <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-navy/15">
               <img
-                src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1200&q=80&auto=format&fit=crop"
-                alt="Cargo ship — opérations internationales ASTT"
+                src={missionImage}
+                alt="Gestion des dossiers import, export et déclarations douanières — opérations internationales ASTT"
                 loading="lazy"
+                width="1200"
+                height="1200"
                 className="h-[420px] w-full object-cover lg:h-[540px]"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-navy/25 via-transparent to-transparent" />
