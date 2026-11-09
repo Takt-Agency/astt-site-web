@@ -1,0 +1,37 @@
+// Session de l'espace client : distincte de celle du tableau de bord (autre application, autres clés).
+const TOKEN_KEY = 'astt.client.token'
+const USER_KEY = 'astt.client.user'
+
+export function getToken() {
+  try {
+    return localStorage.getItem(TOKEN_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function getStoredUser() {
+  try {
+    const raw = localStorage.getItem(USER_KEY)
+    return raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
+}
+
+export function saveSession(token, user) {
+  localStorage.setItem(TOKEN_KEY, token)
+  localStorage.setItem(USER_KEY, JSON.stringify(user))
+}
+
+export function saveUser(user) {
+  localStorage.setItem(USER_KEY, JSON.stringify(user))
+}
+
+export function clearSession() {
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(USER_KEY)
+}
+
+/** Utilisé par la barre de navigation du site (sans charger l'espace client). */
+export const hasClientSession = () => Boolean(getToken())

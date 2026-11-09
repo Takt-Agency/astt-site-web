@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Suspense, lazy, useEffect } from 'react'
+import { Routes, Route, Outlet, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -11,6 +11,9 @@ import ServiceDetail from './pages/ServiceDetail'
 import Actualites from './pages/Actualites'
 import MentionsLegales from './pages/MentionsLegales'
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite'
+
+// Espace client : chargé seulement quand un client l'ouvre
+const EspaceClientApp = lazy(() => import('./espace-client/EspaceClientApp'))
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -27,13 +30,41 @@ function ScrollToTop() {
   return null
 }
 
-function App() {
+/** Site vitrine : barre de navigation et pied de page communs. */
+function SiteLayout() {
   return (
     <div className="min-h-screen bg-white">
-      <ScrollToTop />
       <Navbar />
       <main>
-        <Routes>
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+function ChargementEspace() {
+  return (
+    <div className="grid min-h-screen place-items-center bg-[#f4f6fa] text-sm text-ink/50">
+      Chargement de votre espace…
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/espace-client/*"
+          element={
+            <Suspense fallback={<ChargementEspace />}>
+              <EspaceClientApp />
+            </Suspense>
+          }
+        />
+        <Route element={<SiteLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/a-propos" element={<About />} />
           <Route path="/services" element={<Services />} />
@@ -46,10 +77,9 @@ function App() {
             path="/politique-confidentialite"
             element={<PolitiqueConfidentialite />}
           />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+        </Route>
+      </Routes>
+    </>
   )
 }
 

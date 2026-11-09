@@ -132,7 +132,7 @@ function ServiceDetail() {
             >
               <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-navy/15">
                 <img
-                  src={heroImage}
+                  src={service.image ?? heroImage}
                   alt={service.title}
                   className="h-[380px] w-full object-cover lg:h-[520px]"
                 />

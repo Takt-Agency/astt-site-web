@@ -6,14 +6,19 @@ import {
   faShip,
   faTruckFast,
 } from '@fortawesome/free-solid-svg-icons'
+import consultingImg from '../assets/services/consulting.jpg'
+import formaliteImg from '../assets/services/formalite-douaniere.jpg'
+import importImg from '../assets/services/import.jpg'
+import exportImg from '../assets/services/export.jpg'
+import suiviImg from '../assets/services/suivi.jpg'
+import digitalisationImg from '../assets/services/digitalisation.jpg'
 
 export const SERVICES = [
   {
     slug: 'consulting',
     number: '01',
     icon: faBriefcase,
-    image:
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80&auto=format&fit=crop',
+    image: consultingImg,
     title: 'Consulting',
     tagline: 'Étude et accompagnement de vos nouveaux projets',
     short:
@@ -43,8 +48,7 @@ export const SERVICES = [
     slug: 'formalite-douaniere',
     number: '02',
     icon: faFileInvoice,
-    image:
-      'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80&auto=format&fit=crop',
+    image: formaliteImg,
     title: 'Formalité douanière',
     tagline: 'Suivi des démarches administratives de dédouanement',
     short:
@@ -74,8 +78,7 @@ export const SERVICES = [
     slug: 'import',
     number: '03',
     icon: faShip,
-    image:
-      'https://images.unsplash.com/photo-1494412651409-8963ce7935a7?w=800&q=80&auto=format&fit=crop',
+    image: importImg,
     title: 'Import',
     tagline: 'Gestion complète de vos opérations d’importation',
     short:
@@ -105,8 +108,7 @@ export const SERVICES = [
     slug: 'export',
     number: '04',
     icon: faTruckFast,
-    image:
-      'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80&auto=format&fit=crop',
+    image: exportImg,
     title: 'Export',
     tagline: 'Un accompagnement structuré pour vos exportations',
     short:
@@ -136,8 +138,7 @@ export const SERVICES = [
     slug: 'suivi',
     number: '05',
     icon: faBoxOpen,
-    image:
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop',
+    image: suiviImg,
     title: 'Qualité & Suivi',
     tagline: 'Suivi rigoureux et centralisé de vos opérations',
     short:
@@ -167,8 +168,7 @@ export const SERVICES = [
     slug: 'digitalisation',
     number: '06',
     icon: faLaptopCode,
-    image:
-      'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80&auto=format&fit=crop',
+    image: digitalisationImg,
     title: 'Digitalisation',
     tagline: 'La digitalisation au service de vos opérations',
     short:

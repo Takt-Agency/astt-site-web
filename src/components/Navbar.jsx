@@ -8,6 +8,7 @@ import {
   faBoxOpen,
   faBriefcase,
   faChevronDown,
+  faCircleUser,
   faFileInvoice,
   faLaptopCode,
   faShip,
@@ -15,6 +16,7 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import Logo from './Logo'
+import { hasClientSession } from '../espace-client/session-storage'
 
 const SERVICES = [
   {
@@ -71,6 +73,8 @@ function Navbar() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
   const showLightUI = !scrolled && !mobileOpen
+  // Client déjà connecté à l'espace client : accès direct à son espace
+  const espaceLabel = hasClientSession() ? 'Mon espace' : 'Espace client'
 
   const activeItem =
     pathname === '/contact'
@@ -203,6 +207,17 @@ function Navbar() {
 
         <div className="flex items-center gap-5">
           <Link
+            to="/espace-client"
+            className={`hidden items-center gap-2 text-[14px] font-semibold transition-colors lg:inline-flex ${
+              showLightUI
+                ? 'text-white/85 hover:text-white'
+                : 'text-navy/85 hover:text-orange'
+            }`}
+          >
+            <FontAwesomeIcon icon={faCircleUser} className="text-base" />
+            {espaceLabel}
+          </Link>
+          <Link
             to="/contact"
             className={`hidden items-center gap-3 rounded-full py-2 pl-6 pr-2 text-[14px] font-semibold transition-all lg:inline-flex ${
               showLightUI
@@ -316,6 +331,16 @@ function Navbar() {
                 )
               })}
               <li className="pt-2">
+                <Link
+                  to="/espace-client"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-center gap-2.5 rounded-full border border-navy/15 px-5 py-3 text-sm font-semibold text-navy transition-colors hover:border-navy/40"
+                >
+                  <FontAwesomeIcon icon={faCircleUser} className="text-orange" />
+                  {espaceLabel}
+                </Link>
+              </li>
+              <li>
                 <Link
                   to="/contact"
                   onClick={() => setMobileOpen(false)}

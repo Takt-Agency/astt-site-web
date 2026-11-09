@@ -26,6 +26,7 @@ const NAV_LINKS = [
   { label: 'Nos services', href: '/services' },
   { label: 'Actualités', href: '/actualites' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Espace client', href: '/espace-client' },
 ]
 
 const SERVICES = [
