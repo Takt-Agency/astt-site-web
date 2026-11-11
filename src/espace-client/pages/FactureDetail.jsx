@@ -75,7 +75,15 @@ export default function FactureDetail() {
       )}
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
-        <StatCard label="Total du listing" valeur={tnd(l.total, { devise: false })} hint={`TND · ${l.nbLignes} déclaration${l.nbLignes > 1 ? 's' : ''}`} />
+        <StatCard
+          label={l.totalTVA > 0 || l.totalTimbres > 0 ? 'Total à payer' : 'Total du listing'}
+          valeur={tnd(l.total, { devise: false })}
+          hint={
+            l.totalTVA > 0 || l.totalTimbres > 0
+              ? `TND · dont TVA ${tnd(l.totalTVA, { devise: false })} et timbres ${tnd(l.totalTimbres, { devise: false })}`
+              : `TND · ${l.nbLignes} déclaration${l.nbLignes > 1 ? 's' : ''}`
+          }
+        />
         <StatCard label="Débours" valeur={tnd(l.totalDebours, { devise: false })} hint="TND · droits, TTN, visas…" />
         <StatCard label="Assistance ASTT" valeur={tnd(l.totalAssistance, { devise: false })} hint="TND" />
         <StatCard label="Reste à régler" valeur={tnd(l.reste, { devise: false })} hint={`TND · échéance ${dateFr(l.dateEcheance)}`} accent={l.reste > 0} />
@@ -136,8 +144,30 @@ export default function FactureDetail() {
                   </td>
                 ))}
                 <td />
-                <td className="whitespace-nowrap py-3.5 pr-6 text-right tabular-nums">{tnd(l.total)}</td>
+                <td className="whitespace-nowrap py-3.5 pr-6 text-right tabular-nums">{tnd(l.totalLignes ?? l.total)}</td>
               </tr>
+              {(l.totalTVA > 0 || l.totalTimbres > 0) && (
+                <>
+                  <tr className="bg-slate-50 text-sm text-navy">
+                    <td className="py-2 pl-6 pr-3" colSpan={colonnes.length + 4}>
+                      TVA sur l’assistance (factures de dossier)
+                    </td>
+                    <td className="whitespace-nowrap py-2 pr-6 text-right tabular-nums">{tnd(l.totalTVA)}</td>
+                  </tr>
+                  <tr className="bg-slate-50 text-sm text-navy">
+                    <td className="py-2 pl-6 pr-3" colSpan={colonnes.length + 4}>
+                      Timbres fiscaux
+                    </td>
+                    <td className="whitespace-nowrap py-2 pr-6 text-right tabular-nums">{tnd(l.totalTimbres)}</td>
+                  </tr>
+                  <tr className="border-t border-slate-200 bg-slate-50 font-bold text-navy">
+                    <td className="py-3 pl-6 pr-3" colSpan={colonnes.length + 4}>
+                      Total à payer
+                    </td>
+                    <td className="whitespace-nowrap py-3 pr-6 text-right tabular-nums">{tnd(l.total)}</td>
+                  </tr>
+                </>
+              )}
             </tfoot>
           </table>
         </div>
