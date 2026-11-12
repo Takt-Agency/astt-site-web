@@ -120,6 +120,14 @@ export default function Profil() {
                   <InfoRow label="Adresse">{s.adresse}</InfoRow>
                   <InfoRow label="Téléphone">{s.telephone}</InfoRow>
                   <InfoRow label="Email">{s.email}</InfoRow>
+                  {s.stockDae && (
+                    <InfoRow label="Stock de DAE">
+                      <span className={s.stockDae.niveau === 'epuise' ? 'text-red-600' : s.stockDae.niveau === 'bas' ? 'text-orange' : ''}>
+                        {s.stockDae.restant} DAE restant{s.stockDae.restant > 1 ? 's' : ''}
+                        {s.stockDae.niveau === 'epuise' && ' — contactez ASTT pour un nouveau lot'}
+                      </span>
+                    </InfoRow>
+                  )}
                 </dl>
               </li>
             ))}

@@ -29,9 +29,11 @@ const BARRES = {
 }
 
 export default function TableauDeBord() {
-  const { user } = useSession()
+  const { user, societes } = useSession()
   const { data, error, loading, recharger } = useApi(() => api.get('/tableau-de-bord'), [], { intervalle: 120_000 })
   const prenom = (user?.name ?? '').split(/\s+/)[0]
+  // Stock de DAE (Export) au seuil ou épuisé : prévenir ASTT pour un nouveau lot
+  const stocksBas = societes.filter((s) => s.stockDae?.niveau)
 
   if (loading && !data) return <Loading />
   if (error) return <ErrorBox error={error} onRetry={recharger} />
@@ -79,9 +81,24 @@ export default function TableauDeBord() {
             </Link>
           </Alerte>
         )}
+        {stocksBas.map((s) => (
+          <Alerte
+            key={s._id}
+            ton={s.stockDae.niveau === 'epuise' ? 'erreur' : 'attention'}
+            icon={faTriangleExclamation}
+            titre={s.stockDae.niveau === 'epuise' ? `Stock de DAE épuisé${societes.length > 1 ? ` — ${s.raisonSociale}` : ''}` : `Stock de DAE bas${societes.length > 1 ? ` — ${s.raisonSociale}` : ''}`}
+          >
+            {s.stockDae.niveau === 'epuise'
+              ? 'Plus aucun DAE disponible : les prochains dossiers export ne peuvent pas recevoir leur DAE. '
+              : `Il reste ${s.stockDae.restant} DAE. `}
+            <Link to="/espace-client/demandes/nouvelle?type=autre" className="font-semibold underline underline-offset-2">
+              Contacter ASTT
+            </Link>
+          </Alerte>
+        ))}
       </div>
 
-      <div className={cx('grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4', (compteurs.documentsAttendus || listings.enRetard || demandes.reponsesNonLues) && 'mt-6')}>
+      <div className={cx('grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4', (compteurs.documentsAttendus || listings.enRetard || demandes.reponsesNonLues || stocksBas.length) && 'mt-6')}>
         <StatCard label="Dossiers en cours" valeur={compteurs.enCours} icon={faFolderOpen} to="/espace-client/dossiers?etat=en_cours" hint={`${compteurs.total} dossier${compteurs.total > 1 ? 's' : ''} au total`} />
         <StatCard label="Livrés ce mois" valeur={compteurs.livresMois} icon={faTruckFast} ton="bg-emerald-50 text-emerald-700" to="/espace-client/dossiers?phase=livre" />
         <StatCard
