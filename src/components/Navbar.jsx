@@ -81,7 +81,7 @@ function Navbar() {
       ? 'Contact'
       : pathname === '/a-propos'
         ? 'À propos'
-        : pathname === '/actualites'
+        : pathname.startsWith('/actualites')
           ? 'Actualités'
           : pathname.startsWith('/services')
             ? 'Nos services'

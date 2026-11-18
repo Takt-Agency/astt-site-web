@@ -9,6 +9,7 @@ import Certification from './pages/Certification'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import Actualites from './pages/Actualites'
+import ActualiteDetail from './pages/ActualiteDetail'
 import MentionsLegales from './pages/MentionsLegales'
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite'
 
@@ -70,6 +71,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/actualites" element={<Actualites />} />
+          <Route path="/actualites/:slug" element={<ActualiteDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/certification" element={<Certification />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
