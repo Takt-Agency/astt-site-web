@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { faCircleQuestion, faCoins, faDownload, faFileCsv, faFilePdf, faListCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCircleQuestion, faCoins, faDownload, faFileCsv, faFileInvoiceDollar, faFilePdf, faListCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { api, ouvrirFichier } from '../api'
 import { LISTING_COLONNES } from '../constants'
 import { dateFr, tnd } from '../format'
@@ -8,6 +8,8 @@ import { useApi } from '../useApi'
 import { Alerte, Button, Card, CardHeader, ErrorBox, ListingStatut, Loading, PageHeader, StatCard, cx } from '../components/ui'
 
 const num = (n) => (n ? tnd(n, { devise: false }) : '')
+const taux = (t) => `${String(t ?? 0).replace('.', ',')} %`
+const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s)
 
 export default function FactureDetail() {
   const { id } = useParams()
@@ -26,10 +28,14 @@ export default function FactureDetail() {
   const l = data.listing
   const colonnes = data.colonnes?.length ? data.colonnes : LISTING_COLONNES
 
+  // Facture au modèle ASTT (factures par période) ; les anciens listings mensuels n'en ont pas
+  const facture = Boolean(l.numeroFacture)
+
   async function fichier(format, telecharger) {
     setErreurFichier('')
     try {
-      await ouvrirFichier(`/listings/${l._id}/${format}${telecharger ? '?download=1' : ''}`, { nom: `Listing ${l.numero}.${format === 'csv' ? 'csv' : 'pdf'}`, telecharger })
+      const nom = format === 'facture.pdf' ? `Facture ${l.numeroFacture}.pdf` : `Listing ${l.numero}.${format === 'csv' ? 'csv' : 'pdf'}`
+      await ouvrirFichier(`/listings/${l._id}/${format}${telecharger ? '?download=1' : ''}`, { nom, telecharger })
     } catch (err) {
       setErreurFichier(err.message)
     }
@@ -39,10 +45,11 @@ export default function FactureDetail() {
     <>
       <PageHeader
         retour={{ to: '/espace-client/factures', label: 'Factures & listings' }}
-        titre={<span className="capitalize">Listing {l.libellePeriode}</span>}
+        titre={facture ? `Facture ${l.numeroFacture}` : <span className="capitalize">Listing {l.libellePeriode}</span>}
         description={
           <span className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            <span className="font-semibold text-navy/70">{l.numero}</span>
+            {facture && <span className="font-semibold text-navy/70">{cap(l.libellePeriode)}</span>}
+            <span className="font-semibold text-navy/70">{facture ? `Listing ${l.numero}` : l.numero}</span>
             {l.societe && <span>{l.societe.raisonSociale}</span>}
             <span>
               · du {dateFr(l.dateDu)} au {dateFr(l.dateAu)}
@@ -52,8 +59,13 @@ export default function FactureDetail() {
         }
         actions={
           <>
-            <Button variant="primary" icon={faFilePdf} onClick={() => fichier('pdf', false)}>
-              Voir le PDF
+            {facture && (
+              <Button variant="primary" icon={faFileInvoiceDollar} onClick={() => fichier('facture.pdf', true)}>
+                Télécharger la facture (PDF)
+              </Button>
+            )}
+            <Button variant={facture ? 'secondary' : 'primary'} icon={faFilePdf} onClick={() => fichier('pdf', false)}>
+              {facture ? 'Listing PDF' : 'Voir le PDF'}
             </Button>
             <Button variant="secondary" icon={faDownload} onClick={() => fichier('pdf', true)} aria-label="Télécharger le PDF" />
             <Button variant="secondary" icon={faFileCsv} onClick={() => fichier('csv', true)}>
@@ -76,10 +88,12 @@ export default function FactureDetail() {
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <StatCard
-          label={l.totalTVA > 0 || l.totalTimbres > 0 ? 'Total à payer' : 'Total du listing'}
+          label={facture ? 'Net à payer TTC' : l.totalTVA > 0 || l.totalTimbres > 0 ? 'Total à payer' : 'Total du listing'}
           valeur={tnd(l.total, { devise: false })}
           hint={
-            l.totalTVA > 0 || l.totalTimbres > 0
+            facture
+              ? `TND · TVA ${tnd(l.totalTVA, { devise: false })} · timbre ${tnd(l.totalTimbres, { devise: false })}${l.montantRS > 0 ? ` · RS −${tnd(l.montantRS, { devise: false })}` : ''}`
+              : l.totalTVA > 0 || l.totalTimbres > 0
               ? `TND · dont TVA ${tnd(l.totalTVA, { devise: false })} et timbres ${tnd(l.totalTimbres, { devise: false })}`
               : `TND · ${l.nbLignes} déclaration${l.nbLignes > 1 ? 's' : ''}`
           }
@@ -146,23 +160,31 @@ export default function FactureDetail() {
                 <td />
                 <td className="whitespace-nowrap py-3.5 pr-6 text-right tabular-nums">{tnd(l.totalLignes ?? l.total)}</td>
               </tr>
-              {(l.totalTVA > 0 || l.totalTimbres > 0) && (
+              {(facture || l.totalTVA > 0 || l.totalTimbres > 0) && (
                 <>
                   <tr className="bg-slate-50 text-sm text-navy">
                     <td className="py-2 pl-6 pr-3" colSpan={colonnes.length + 4}>
-                      TVA sur l’assistance (factures de dossier)
+                      {facture ? `T.V.A. ${taux(l.tauxTVA)} sur l’assistance` : 'TVA sur l’assistance (factures de dossier)'}
                     </td>
                     <td className="whitespace-nowrap py-2 pr-6 text-right tabular-nums">{tnd(l.totalTVA)}</td>
                   </tr>
                   <tr className="bg-slate-50 text-sm text-navy">
                     <td className="py-2 pl-6 pr-3" colSpan={colonnes.length + 4}>
-                      Timbres fiscaux
+                      {facture ? 'Timbre fiscal' : 'Timbres fiscaux'}
                     </td>
                     <td className="whitespace-nowrap py-2 pr-6 text-right tabular-nums">{tnd(l.totalTimbres)}</td>
                   </tr>
+                  {facture && l.montantRS > 0 && (
+                    <tr className="bg-slate-50 text-sm text-navy">
+                      <td className="py-2 pl-6 pr-3" colSpan={colonnes.length + 4}>
+                        Retenue à la source {taux(l.tauxRS)} sur l’assistance (total TTC {tnd(l.totalTTC)})
+                      </td>
+                      <td className="whitespace-nowrap py-2 pr-6 text-right tabular-nums">−{tnd(l.montantRS)}</td>
+                    </tr>
+                  )}
                   <tr className="border-t border-slate-200 bg-slate-50 font-bold text-navy">
                     <td className="py-3 pl-6 pr-3" colSpan={colonnes.length + 4}>
-                      Total à payer
+                      {facture ? 'Net à payer TTC' : 'Total à payer'}
                     </td>
                     <td className="whitespace-nowrap py-3 pr-6 text-right tabular-nums">{tnd(l.total)}</td>
                   </tr>

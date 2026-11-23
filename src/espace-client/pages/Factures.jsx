@@ -7,6 +7,10 @@ import { useSession } from '../session'
 import { useApi } from '../useApi'
 import { Alerte, Button, Card, EmptyState, ErrorBox, ListingStatut, Loading, PageHeader, Pilule, StatCard, cx, inputClass } from '../components/ui'
 
+const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s)
+/** Fichiers : la facture (modèle ASTT, factures par période), le listing détaillé (PDF) et le tableur. */
+const NOMS = { 'facture.pdf': (l) => `Facture ${l.numeroFacture}.pdf`, pdf: (l) => `Listing ${l.numero}.pdf`, csv: (l) => `Listing ${l.numero}.csv` }
+
 export default function Factures() {
   const { societes } = useSession()
   const navigate = useNavigate()
@@ -28,7 +32,7 @@ export default function Factures() {
   async function fichier(l, format, telecharger) {
     setErreurFichier('')
     try {
-      const nom = `Listing ${l.numero}.${format === 'csv' ? 'csv' : 'pdf'}`
+      const nom = NOMS[format](l)
       await ouvrirFichier(`/listings/${l._id}/${format}${telecharger ? '?download=1' : ''}`, { nom, telecharger })
     } catch (err) {
       setErreurFichier(err.message)
@@ -39,7 +43,7 @@ export default function Factures() {
     <>
       <PageHeader
         titre="Factures & listings"
-        description="Votre listing mensuel reprend, déclaration par déclaration, les débours (droits, TTN, visas…) et l’assistance ASTT de vos dossiers."
+        description="Chaque facture couvre une période : assistance ASTT et débours (droits de douane, TTN, visas…), avec son listing détaillé déclaration par déclaration."
       />
 
       {error ? (
@@ -49,12 +53,12 @@ export default function Factures() {
       ) : (
         <>
           <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
-            <StatCard label="Total facturé" valeur={tnd(data.synthese.total, { devise: false })} hint={`TND · ${data.synthese.nombre} listing${data.synthese.nombre > 1 ? 's' : ''}`} icon={faFileInvoiceDollar} />
+            <StatCard label="Total facturé" valeur={tnd(data.synthese.total, { devise: false })} hint={`TND · ${data.synthese.nombre} facture${data.synthese.nombre > 1 ? 's' : ''}`} icon={faFileInvoiceDollar} />
             <StatCard label="Déjà réglé" valeur={tnd(data.synthese.regle, { devise: false })} hint="TND" icon={faCircleCheck} ton="bg-emerald-50 text-emerald-700" />
             <StatCard
               label="Reste à régler"
               valeur={tnd(data.synthese.reste, { devise: false })}
-              hint={`TND · ${data.synthese.aRegler} listing${data.synthese.aRegler > 1 ? 's' : ''}`}
+              hint={`TND · ${data.synthese.aRegler} facture${data.synthese.aRegler > 1 ? 's' : ''}`}
               icon={faHourglassHalf}
               ton="bg-orange/10 text-orange"
               accent={data.synthese.reste > 0}
@@ -106,7 +110,7 @@ export default function Factures() {
 
           <Card className="mt-5 overflow-hidden">
             {data.items.length === 0 ? (
-              <EmptyState icon={faFileInvoiceDollar} titre="Aucun listing" texte="Vos listings mensuels apparaîtront ici dès leur émission par ASTT." />
+              <EmptyState icon={faFileInvoiceDollar} titre="Aucune facture" texte="Vos factures et leurs listings apparaîtront ici dès leur émission par ASTT." />
             ) : (
               <>
                 <div className="hidden overflow-x-auto lg:block">
@@ -116,7 +120,7 @@ export default function Factures() {
                         <th className="py-3 pl-6 pr-4">Période</th>
                         {societes.length > 1 && <th className="py-3 pr-4">Société</th>}
                         <th className="py-3 pr-4 text-right">Dossiers</th>
-                        <th className="py-3 pr-4 text-right">Total</th>
+                        <th className="py-3 pr-4 text-right">Net à payer</th>
                         <th className="py-3 pr-4 text-right">Reste</th>
                         <th className="py-3 pr-4">Échéance</th>
                         <th className="py-3 pr-4">Statut</th>
@@ -127,16 +131,24 @@ export default function Factures() {
                       {data.items.map((l) => (
                         <tr key={l._id} onClick={() => navigate(`/espace-client/factures/${l._id}`)} className="cursor-pointer border-b border-slate-100 last:border-0 hover:bg-slate-50/80">
                           <td className="py-3.5 pl-6 pr-4">
-                            <Link to={`/espace-client/factures/${l._id}`} onClick={(e) => e.stopPropagation()} className="font-semibold capitalize text-navy hover:text-orange">
-                              {l.libellePeriode}
+                            <Link to={`/espace-client/factures/${l._id}`} onClick={(e) => e.stopPropagation()} className="font-semibold text-navy hover:text-orange">
+                              {cap(l.libellePeriode)}
                             </Link>
                             <span className="block text-xs text-ink/50">
-                              {l.numero} · émis le {dateFr(l.dateEmission)}
+                              {l.numeroFacture ? `Facture ${l.numeroFacture} · listing ${l.numero}` : l.numero} · émis le {dateFr(l.dateEmission)}
                             </span>
                           </td>
                           {societes.length > 1 && <td className="max-w-[180px] truncate py-3.5 pr-4 text-navy/80">{l.societe?.raisonSociale}</td>}
                           <td className="py-3.5 pr-4 text-right text-navy/80">{l.nbDossiers}</td>
-                          <td className="whitespace-nowrap py-3.5 pr-4 text-right font-semibold text-navy">{tnd(l.total)}</td>
+                          <td className="whitespace-nowrap py-3.5 pr-4 text-right">
+                            <span className="block font-semibold text-navy">{tnd(l.total)}</span>
+                            {l.numeroFacture && (
+                              <span className="block text-[11px] text-ink/50">
+                                TVA {tnd(l.totalTVA, { devise: false })} · timbre {tnd(l.totalTimbres, { devise: false })}
+                                {l.montantRS > 0 && ` · RS −${tnd(l.montantRS, { devise: false })}`}
+                              </span>
+                            )}
+                          </td>
                           <td className={cx('whitespace-nowrap py-3.5 pr-4 text-right', l.reste > 0 ? 'font-semibold text-orange' : 'text-ink/40')}>{tnd(l.reste)}</td>
                           <td className={cx('whitespace-nowrap py-3.5 pr-4', l.enRetard ? 'font-semibold text-red-600' : 'text-navy/70')}>{dateFr(l.dateEcheance)}</td>
                           <td className="py-3.5 pr-4">
@@ -144,8 +156,13 @@ export default function Factures() {
                           </td>
                           <td className="py-3.5 pr-6" onClick={(e) => e.stopPropagation()}>
                             <span className="flex justify-end gap-1.5">
+                              {l.numeroFacture && (
+                                <Button variant="secondary" size="sm" icon={faFileInvoiceDollar} onClick={() => fichier(l, 'facture.pdf', true)} aria-label={`Télécharger la facture ${l.numeroFacture} (PDF)`}>
+                                  Facture
+                                </Button>
+                              )}
                               <Button variant="secondary" size="sm" icon={faFilePdf} onClick={() => fichier(l, 'pdf', false)} aria-label={`PDF du listing ${l.numero}`}>
-                                PDF
+                                Listing
                               </Button>
                               <Button variant="ghost" size="sm" icon={faFileCsv} onClick={() => fichier(l, 'csv', true)} aria-label={`Excel du listing ${l.numero}`}>
                                 Excel
@@ -162,9 +179,9 @@ export default function Factures() {
                     <li key={l._id} className="px-4 py-4">
                       <Link to={`/espace-client/factures/${l._id}`} className="flex items-start justify-between gap-3">
                         <span>
-                          <span className="block font-semibold capitalize text-navy">{l.libellePeriode}</span>
+                          <span className="block font-semibold text-navy">{cap(l.libellePeriode)}</span>
                           <span className="block text-xs text-ink/50">
-                            {l.numero} · échéance {dateFr(l.dateEcheance)}
+                            {l.numeroFacture ?? l.numero} · échéance {dateFr(l.dateEcheance)}
                           </span>
                         </span>
                         <span className="text-right">
@@ -172,9 +189,14 @@ export default function Factures() {
                           <ListingStatut statut={l.statut} enRetard={l.enRetard} />
                         </span>
                       </Link>
-                      <span className="mt-3 flex gap-2">
+                      <span className="mt-3 flex flex-wrap gap-2">
+                        {l.numeroFacture && (
+                          <Button variant="secondary" size="sm" icon={faFileInvoiceDollar} onClick={() => fichier(l, 'facture.pdf', true)}>
+                            Facture
+                          </Button>
+                        )}
                         <Button variant="secondary" size="sm" icon={faFilePdf} onClick={() => fichier(l, 'pdf', false)}>
-                          PDF
+                          Listing
                         </Button>
                         <Button variant="ghost" size="sm" icon={faFileCsv} onClick={() => fichier(l, 'csv', true)}>
                           Excel
